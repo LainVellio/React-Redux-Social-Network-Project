@@ -1,10 +1,10 @@
 import classes from './Post.module.css';
 
-const Post = () => {
+const Post = (props) => {
   return (
     <div className={classes.item}>
       <img src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_female_woman_avatar-256.png"></img>{' '}
-      Post 1
+      {props.message}
       <div>
         <span className={classes.like}>like</span>
       </div>
