@@ -1,7 +1,7 @@
 import cl from './Settings.module.css';
 
 const Settings = (props) => {
-  return <div>Settings</div>;
+  return <div className={cl.settings}>Settings</div>;
 };
 
 export default Settings;

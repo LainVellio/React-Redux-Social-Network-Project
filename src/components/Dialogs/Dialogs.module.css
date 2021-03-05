@@ -1,13 +1,16 @@
 .dialogs {
   display: grid;
   grid-template-columns: 2fr 10fr;
+  grid-gap: 10px;
 }
 
 .dialog_items {
+  background-color: salmon;
   padding: 20px;
 }
 
 .dialog {
+  text-decoration: none;
 }
 
 .active {
@@ -16,6 +19,7 @@
 
 .messages {
   padding: 20px;
+  background-color: rosybrown;
 }
 
 .message {
