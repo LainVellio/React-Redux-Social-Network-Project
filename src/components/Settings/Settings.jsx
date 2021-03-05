@@ -1,4 +1,4 @@
-import classes from './Settings.module.css';
+import cl from './Settings.module.css';
 
 const Settings = (props) => {
   return <div>Settings</div>;

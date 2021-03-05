@@ -1,4 +1,4 @@
-import classes from './News.module.css';
+import cl from './News.module.css';
 
 const News = (props) => {
   return <div>News</div>;
