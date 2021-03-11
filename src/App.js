@@ -23,9 +23,7 @@ const App = (props) => {
           />
           <Route
             path="/profile"
-            render={() => {
-              <Profile posts={props.posts} />;
-            }}
+            render={() => <Profile posts={props.posts} />}
           />
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />
