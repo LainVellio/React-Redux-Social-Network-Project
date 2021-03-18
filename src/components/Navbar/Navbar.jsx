@@ -3,8 +3,8 @@ import cl from './Navbar.module.css';
 
 const Navbar = () => {
   return (
-    <nav className={cl.nav}>
-      <div>
+    <nav className={`${cl.nav} ${'block'}`}>
+      <div className={cl.links}>
         <div className={cl.item}>
           <NavLink to="/profile" activeClassName={cl.active}>
             Profile

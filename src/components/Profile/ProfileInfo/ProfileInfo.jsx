@@ -2,12 +2,12 @@ import cl from './ProfileInfo.module.css';
 
 const ProfileInfo = (props) => {
   return (
-    <div>
-      <div>
+    <div className={cl.profile_content}>
+      <div className={cl.img_block}>
         <img
-          src="https://www.uu.se/digitalAssets/805/c_805646-l_1-k_image.jpg"
+          src="https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
           alt="ProfileImage"
-        ></img>
+        />
       </div>
       <div className={cl.description_block}>ava + description</div>
     </div>

@@ -1,26 +1,56 @@
 .dialogs {
   display: grid;
-  grid-template-columns: 2fr 10fr;
-  grid-gap: 10px;
+  grid-template-columns: 3fr 10fr;
+  grid-gap: 20px;
+  grid-row-gap: 0px;
 }
 
 .dialog_items {
-  background-color: salmon;
-  padding: 20px;
+  line-height: 2;
 }
 
-.dialog {
+.dialog img {
+  display: inline;
+  width: 50px;
+}
+
+.dialog span {
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px 0 0 10px;
+}
+
+.dialog a {
   text-decoration: none;
+  color: black;
 }
 
-.active {
-  color: gold;
+.dialog a.active {
+  color: #f6851e;
 }
 
 .messages {
-  padding: 20px;
-  background-color: rosybrown;
+  font-size: 14px;
 }
 
-.message {
+.message_mine {
+  margin: 30px;
+  text-align: right;
+}
+
+.message_mine span {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f1c296;
+}
+
+.message_foreign {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.message_foreign span {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgb(224, 224, 224);
 }

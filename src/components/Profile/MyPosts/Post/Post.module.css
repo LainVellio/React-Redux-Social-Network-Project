@@ -1,11 +1,38 @@
 .item {
-  color: red;
+  color: black;
+  padding: 10px;
+  border: 1px solid #f6851e;
+  margin-top: 10px;
+  border-radius: 15px;
 }
 
 .item img {
-  width: 80px;
+  display: inline;
+  width: 70px;
+}
+
+.message {
+  margin-left: 15px;
 }
 
 .like {
+  text-align: right;
   color: green;
+}
+
+.likeCount {
+  display: inline;
+  vertical-align: top;
+}
+
+.like img {
+  width: 22px;
+  padding-left: 5px;
+}
+
+.name {
+  display: inline-block;
+  padding: 30px 0 0 10px;
+  color: red;
+  vertical-align: top;
 }

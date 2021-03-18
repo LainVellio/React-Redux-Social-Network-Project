@@ -1,3 +1,6 @@
 .news {
-  background-color: rosybrown;
+  border-radius: 7px;
+  border: 1px solid #61616128;
+  background-color: white;
+  overflow: hidden;
 }

@@ -1,3 +1,11 @@
 .description_block {
-  padding: 10px;
+}
+
+.img_block {
+  margin-top: -30px;
+  margin-left: -50px;
+  padding: 0;
+  overflow: hidden;
+  width: 810px;
+  height: 250px;
 }

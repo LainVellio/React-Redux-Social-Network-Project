@@ -4,9 +4,11 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = (props) => {
   return (
-    <div className={cl.profile}>
-      <ProfileInfo />
-      <MyPosts posts={props.state.posts} />
+    <div className={`${cl.profile} ${'block'}`}>
+      <div>
+        <ProfileInfo />
+      </div>
+      <MyPosts posts={props.state.posts} users={props.users} />
     </div>
   );
 };

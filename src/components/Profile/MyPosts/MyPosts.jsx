@@ -2,8 +2,23 @@ import cl from './MyPosts.module.css';
 import Post from './Post/Post';
 
 const MyPosts = (props) => {
-  const postElements = props.posts.map((post) => (
-    <Post message={post.message} likesCount={post.likesCount} />
+  const post = props.posts.map((post) => {
+    const user = props.users.find((item) => post.name === item.name);
+    return {
+      name: post.name,
+      id: post.id,
+      likesCount: post.likesCount,
+      message: post.message,
+      avatar: user.avatar,
+    };
+  });
+  const postElements = post.map((post) => (
+    <Post
+      name={post.name}
+      message={post.message}
+      likesCount={post.likesCount}
+      avatar={post.avatar}
+    />
   ));
 
   return (

@@ -1,17 +1,16 @@
 .app-wrapper {
   margin: 0 auto;
   display: grid;
-  width: 1200px;
+  width: 1000px;
 
-  grid-template-areas:
-    'h h'
-    'n c';
-
-  grid-template-rows: 60px 1fr;
+  grid-template-rows: none;
   grid-template-columns: 1fr 10fr;
-  grid-gap: 10px;
+  grid-gap: 20px;
 }
 
-.app-wrapper-content {
-  grid: c;
+.block {
+  padding: 30px 30px 30px 30px;
+  border-radius: 7px;
+  border: 1px solid #61616128;
+  background-color: white;
 }
