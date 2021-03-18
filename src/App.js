@@ -35,6 +35,7 @@ const App = (props) => {
             <Profile
               state={props.state.profilePage}
               users={props.state.users}
+              addPost={props.addPost}
             />
           )}
         />

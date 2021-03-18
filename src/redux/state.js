@@ -1,3 +1,5 @@
+import { rerenderEntireTree } from '../render';
+
 const state = {
   users: [
     {
@@ -64,6 +66,18 @@ const state = {
   },
 
   sidebar: {},
+};
+
+export const addPost = (postMessage) => {
+  const newPost = {
+    id: 3,
+    message: postMessage,
+    likesCount: 0,
+    name: 'Dmitry',
+  };
+
+  state.profilePage.posts.push(newPost);
+  rerenderEntireTree(state);
 };
 
 export default state;
