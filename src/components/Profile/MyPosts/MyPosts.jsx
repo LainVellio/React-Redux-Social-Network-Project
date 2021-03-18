@@ -1,3 +1,4 @@
+import React from 'react';
 import cl from './MyPosts.module.css';
 import Post from './Post/Post';
 
@@ -12,6 +13,7 @@ const MyPosts = (props) => {
       avatar: user.avatar,
     };
   });
+
   const postElements = post.map((post) => (
     <Post
       name={post.name}
@@ -21,15 +23,24 @@ const MyPosts = (props) => {
     />
   ));
 
+  const newPostElement = React.createRef();
+
+  const addPost = () => {
+    const text = newPostElement.current.value;
+    alert(text);
+  };
+
   return (
     <div className={cl.postBlock}>
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea></textarea>
+          <textarea className={cl.textarea} ref={newPostElement}></textarea>
         </div>
         <div>
-          <button>Add post</button>
+          <button className={cl.addPost} onClick={addPost}>
+            Add post
+          </button>
         </div>
       </div>
       <div className={cl.posts}>{postElements}</div>

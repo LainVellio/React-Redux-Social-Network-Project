@@ -54,3 +54,14 @@
   border-radius: 5px;
   background-color: rgb(224, 224, 224);
 }
+
+.textarea {
+  width: 100%;
+  height: 70px;
+  resize: none;
+}
+
+.sendButton {
+  display: block;
+  margin-left: auto;
+}
