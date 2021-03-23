@@ -50,7 +50,7 @@ const state = {
         likesCount: 15,
       },
     ],
-    newPostText: 'New Post',
+    newPostText: '',
   },
 
   dialogsPage: {
@@ -65,6 +65,7 @@ const state = {
       { id: 4, message: 'Тоже прекрасно!', name: 'Sergey' },
       { id: 5, message: 'Когда встретимся?', name: 'Dmitry' },
     ],
+    newMessageText: '',
   },
 
   sidebar: {},
@@ -85,6 +86,22 @@ export const addPost = () => {
 
 export const updateNewPostText = (newText) => {
   state.profilePage.newPostText = newText;
+  rerenderEntireTree(state);
+};
+
+export const sendMessage = () => {
+  const newMessage = {
+    id: 5,
+    message: state.dialogsPage.newMessageText,
+    name: 'Dmitry',
+  };
+  state.dialogsPage.messages.push(newMessage);
+  state.dialogsPage.newMessageText = '';
+  rerenderEntireTree(state);
+};
+
+export const updateNewMessageText = (newText) => {
+  state.dialogsPage.newMessageText = newText;
   rerenderEntireTree(state);
 };
 
