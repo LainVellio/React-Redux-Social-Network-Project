@@ -2,14 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import state, { subscribe } from './redux/state';
+import store from './redux/state';
 import App from './App';
-import {
-  addPost,
-  updateNewPostText,
-  sendMessage,
-  updateNewMessageText,
-} from './redux/state';
 import { BrowserRouter } from 'react-router-dom';
 
 const rerenderEntireTree = (state) => {
@@ -18,10 +12,10 @@ const rerenderEntireTree = (state) => {
       <BrowserRouter>
         <App
           state={state}
-          addPost={addPost}
-          updateNewPostText={updateNewPostText}
-          sendMessage={sendMessage}
-          updateNewMessageText={updateNewMessageText}
+          addPost={store.addPost.bind(store)}
+          updateNewPostText={store.updateNewPostText.bind(store)}
+          sendMessage={store.sendMessage.bind(store)}
+          updateNewMessageText={store.updateNewMessageText.bind(store)}
         />
       </BrowserRouter>
     </React.StrictMode>,
@@ -29,9 +23,9 @@ const rerenderEntireTree = (state) => {
   );
 };
 
-rerenderEntireTree(state);
+rerenderEntireTree(store.getState());
 
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
