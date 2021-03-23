@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import { rerenderEntireTree } from '../render';
 
 const state = {
@@ -49,6 +50,7 @@ const state = {
         likesCount: 15,
       },
     ],
+    newPostText: 'New Post',
   },
 
   dialogsPage: {
@@ -68,15 +70,21 @@ const state = {
   sidebar: {},
 };
 
-export const addPost = (postMessage) => {
+export const addPost = () => {
   const newPost = {
     id: 3,
-    message: postMessage,
+    message: state.profilePage.newPostText,
     likesCount: 0,
     name: 'Dmitry',
   };
 
   state.profilePage.posts.push(newPost);
+  state.profilePage.newPostText = '';
+  rerenderEntireTree(state);
+};
+
+export const updateNewPostText = (newText) => {
+  state.profilePage.newPostText = newText;
   rerenderEntireTree(state);
 };
 

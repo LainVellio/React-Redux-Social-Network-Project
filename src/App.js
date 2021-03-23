@@ -33,9 +33,10 @@ const App = (props) => {
           path="/profile"
           render={() => (
             <Profile
-              state={props.state.profilePage}
+              profilePage={props.state.profilePage}
               users={props.state.users}
               addPost={props.addPost}
+              updateNewPostText={props.updateNewPostText}
             />
           )}
         />
