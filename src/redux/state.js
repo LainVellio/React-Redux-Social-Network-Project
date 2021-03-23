@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
-import { rerenderEntireTree } from '../render';
+
+let rerenderEntireTree = () => {};
 
 const state = {
   users: [
@@ -81,12 +82,12 @@ export const addPost = () => {
 
   state.profilePage.posts.push(newPost);
   state.profilePage.newPostText = '';
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 };
 
 export const updateNewPostText = (newText) => {
   state.profilePage.newPostText = newText;
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 };
 
 export const sendMessage = () => {
@@ -97,12 +98,16 @@ export const sendMessage = () => {
   };
   state.dialogsPage.messages.push(newMessage);
   state.dialogsPage.newMessageText = '';
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 };
 
 export const updateNewMessageText = (newText) => {
   state.dialogsPage.newMessageText = newText;
-  rerenderEntireTree(state);
+  rerenderEntireTree();
+};
+
+export const subscribe = (observer) => {
+  rerenderEntireTree = observer;
 };
 
 export default state;
