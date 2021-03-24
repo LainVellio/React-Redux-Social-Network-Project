@@ -25,8 +25,7 @@ const App = (props) => {
             <Dialogs
               dialogsPage={props.state.dialogsPage}
               users={props.state.users}
-              sendMessage={props.sendMessage}
-              updateNewMessageText={props.updateNewMessageText}
+              dispatch={props.dispatch}
             />
           )}
         />
@@ -37,8 +36,7 @@ const App = (props) => {
             <Profile
               profilePage={props.state.profilePage}
               users={props.state.users}
-              addPost={props.addPost}
-              updateNewPostText={props.updateNewPostText}
+              dispatch={props.dispatch}
             />
           )}
         />
