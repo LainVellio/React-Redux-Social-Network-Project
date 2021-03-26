@@ -17,14 +17,14 @@ const App = (props) => {
       <div className="app-wrapper">
         <div>
           <Navbar />
-          <Sidebar users={props.state.users} />
+          <Sidebar users={props.state.sidebar.users} />
         </div>
         <Route
           path="/dialogs"
           render={() => (
             <Dialogs
-              store={props.store}
-              users={props.state.users}
+              dialogsPage={props.state.dialogsPage}
+              users={props.state.dialogsPage.users}
               dispatch={props.dispatch}
             />
           )}
@@ -35,7 +35,7 @@ const App = (props) => {
           render={() => (
             <Profile
               profilePage={props.state.profilePage}
-              users={props.state.users}
+              users={props.state.profilePage.users}
               dispatch={props.dispatch}
             />
           )}

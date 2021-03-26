@@ -5,16 +5,14 @@ import Message from './Message/Message';
 import {
   sendMessageActionCreator,
   updateNewMessageBodyActionCreater,
-} from '../../redux/state';
+} from '../../redux/dialogs-reducer';
 
 const Dialogs = (props) => {
-  const state = props.store.getState().dialogsPage;
-
   const dialogsElements = props.users.map((dialog) => (
     <DialogItem name={dialog.name} id={dialog.id} avatar={dialog.avatar} />
   ));
 
-  const messagesElements = state.messages.map((message) => (
+  const messagesElements = props.dialogsPage.messages.map((message) => (
     <Message message={message.message} name={message.name} />
   ));
 
@@ -38,7 +36,7 @@ const Dialogs = (props) => {
           <textarea
             className={cl.textarea}
             onChange={onMessageChange}
-            value={state.newMessageBody}
+            value={props.dialogsPage.newMessageBody}
           />
           <button className={cl.sendButton} onClick={sendMessage}>
             Send
