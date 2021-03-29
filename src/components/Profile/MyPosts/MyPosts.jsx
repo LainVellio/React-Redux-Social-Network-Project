@@ -1,14 +1,11 @@
-import React from 'react';
 import cl from './MyPosts.module.css';
 import Post from './Post/Post';
-import {
-  addPostActionCreator,
-  updateNewPostTextActionCreater,
-} from '../../../redux/profile-reducer';
 
 const MyPosts = (props) => {
-  const post = props.posts.map((post) => {
-    const user = props.users.find((item) => post.name === item.name);
+  const state = props.profilePage;
+
+  const post = state.posts.map((post) => {
+    const user = state.users.find((item) => post.name === item.name);
     return {
       name: post.name,
       id: post.id,
@@ -27,16 +24,13 @@ const MyPosts = (props) => {
     />
   ));
 
-  const newPostElement = React.createRef();
-
-  const addPost = () => {
-    props.dispatch(addPostActionCreator());
+  const onAddPost = () => {
+    props.addPost();
   };
 
-  const onPostChange = () => {
-    const text = newPostElement.current.value;
-    const action = updateNewPostTextActionCreater(text);
-    props.dispatch(action);
+  const onPostChange = (e) => {
+    const text = e.target.value;
+    props.updateNewPostText(text);
   };
 
   return (
@@ -47,12 +41,11 @@ const MyPosts = (props) => {
           <textarea
             onChange={onPostChange}
             className={cl.textarea}
-            ref={newPostElement}
-            value={props.newPostText}
+            value={state.newPostText}
           />
         </div>
         <div>
-          <button className={cl.addPost} onClick={addPost}>
+          <button className={cl.addPost} onClick={onAddPost}>
             Add post
           </button>
         </div>
