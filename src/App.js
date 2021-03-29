@@ -1,5 +1,6 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
+import store from './redux/redux-store';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
@@ -17,14 +18,11 @@ const App = (props) => {
       <div className="app-wrapper">
         <div>
           <Navbar />
-          <Sidebar users={props.store.getState().sidebar.users} />
+          <Sidebar users={store.getState().sidebar.users} />
         </div>
-        <Route
-          path="/dialogs"
-          render={() => <DialogsContainer store={props.store} />}
-        />
+        <Route path="/dialogs" render={() => <DialogsContainer />} />
 
-        <Route path="/profile" render={() => <Profile store={props.store} />} />
+        <Route path="/profile" render={() => <Profile />} />
 
         <Route path="/news" component={News} />
 
