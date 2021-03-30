@@ -30,6 +30,11 @@ const Navbar = () => {
             Settings
           </NavLink>
         </div>
+        <div className={cl.item}>
+          <NavLink to="/users" activeClassName={cl.active}>
+            Friends
+          </NavLink>
+        </div>
       </div>
     </nav>
   );
