@@ -8,6 +8,7 @@ const MyPosts = (props) => {
     const user = state.users.find((item) => post.name === item.name);
     return {
       name: post.name,
+      key: post.id,
       id: post.id,
       likesCount: post.likesCount,
       message: post.message,
@@ -18,6 +19,7 @@ const MyPosts = (props) => {
   const postElements = post.map((post) => (
     <Post
       name={post.name}
+      key={post.id}
       message={post.message}
       likesCount={post.likesCount}
       avatar={post.avatar}
