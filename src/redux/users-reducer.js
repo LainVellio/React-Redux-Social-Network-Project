@@ -4,6 +4,7 @@ const SET_USERS = 'SET_USERS';
 
 const initialState = {
   users: [
+    /* 
     {
       id: 1,
       followed: true,
@@ -57,7 +58,7 @@ const initialState = {
       location: { city: 'Moscow', country: 'Russia' },
       avatar:
         'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-256.png',
-    },
+    }, */
   ],
 };
 
@@ -87,7 +88,7 @@ const usersReducer = (state = initialState, action) => {
     case SET_USERS:
       return {
         ...state,
-        users: [...state.users, action.users],
+        users: [...action.users],
       };
     default:
       return state;
