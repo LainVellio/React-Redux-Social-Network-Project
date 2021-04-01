@@ -3,69 +3,15 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 const initialState = {
-  users: [
-    /* 
-    {
-      id: 1,
-      followed: true,
-      fullName: 'Dmitry',
-      status: 'Изучаю React',
-      location: { city: 'Tula', country: 'Russia' },
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/man_male_avatar_portrait-256.png',
-    },
-    {
-      id: 2,
-      followed: true,
-      fullName: 'Alice',
-      status: 'Покрасила волосы в красный цвет',
-      location: { city: 'Tula', country: 'Russia' },
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/suicide_squad_woman_avatar_joker-128.png',
-    },
-    {
-      id: 3,
-      followed: true,
-      fullName: 'Sergey',
-      status: 'Играю на гитаре',
-      location: { city: 'Tula', country: 'Russia' },
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/boy_male_avatar_portrait-256.png',
-    },
-    {
-      id: 4,
-      followed: true,
-      fullName: 'Pavel',
-      status: 'Программирую',
-      location: { city: 'Saint Petersburg', country: 'Russia' },
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/punk_man_person_avatar-256.png',
-    },
-    {
-      id: 5,
-      followed: true,
-      fullName: 'Vadim',
-      status: 'Записал альбом',
-      location: { city: 'Saint Petersburg', country: 'Russia' },
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png',
-    },
-    {
-      id: 6,
-      followed: false,
-      fullName: 'Alina',
-      status: 'Рисую портрет',
-      location: { city: 'Moscow', country: 'Russia' },
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-256.png',
-    }, */
-  ],
+  users: [],
   pageSize: 3,
   totalUsersCount: 0,
   currentPage: 1,
   endPage: 10,
+  isFetching: false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -110,6 +56,10 @@ const usersReducer = (state = initialState, action) => {
         totalUsersCount: action.totalUsersCount,
       };
 
+    case TOGGLE_IS_FETCHING: {
+      return { ...state, isFetching: action.isFetching };
+    }
+
     default:
       return state;
   }
@@ -125,6 +75,10 @@ export const setCurrentPageAC = (currentPage) => ({
 export const setTotalUsersCountAC = (totalUsersCount) => ({
   type: SET_TOTAL_COUNT,
   totalUsersCount,
+});
+export const toggleIsFetchingAC = (isFetching) => ({
+  type: TOGGLE_IS_FETCHING,
+  isFetching,
 });
 
 export default usersReducer;
