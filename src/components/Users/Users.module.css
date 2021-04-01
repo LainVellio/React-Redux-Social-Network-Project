@@ -5,6 +5,11 @@
   width: 60px;
 }
 
+.numberPage {
+  color: #f6851e;
+  cursor: pointer;
+}
+
 .selectedPage {
   font-weight: bold;
 }
