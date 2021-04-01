@@ -1,15 +1,18 @@
-.users {
-}
-
 .avatar {
   width: 60px;
 }
 
 .numberPage {
+  display: inline-block;
   color: #f6851e;
   cursor: pointer;
+  width: 30px;
+  padding: 10px;
+  background-color: white;
+  border: none;
 }
 
 .selectedPage {
+  font-size: large;
   font-weight: bold;
 }

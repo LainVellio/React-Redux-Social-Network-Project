@@ -4,12 +4,15 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const SHIFT_PAGES_LEFT = 'SHIFT_PAGES_LEFT';
+const SHIFT_PAGES_RIGHT = 'SHIFT_PAGES_RIGHT';
 
 const initialState = {
   users: [],
   pageSize: 3,
   totalUsersCount: 0,
   currentPage: 1,
+  beginPage: 0,
   endPage: 10,
   isFetching: false,
 };
@@ -26,7 +29,6 @@ const usersReducer = (state = initialState, action) => {
           return user;
         }),
       };
-
     case UNFOLLOW:
       return {
         ...state,
@@ -49,7 +51,6 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         currentPage: action.currentPage,
       };
-
     case SET_TOTAL_COUNT:
       return {
         ...state,
@@ -58,6 +59,13 @@ const usersReducer = (state = initialState, action) => {
 
     case TOGGLE_IS_FETCHING: {
       return { ...state, isFetching: action.isFetching };
+    }
+
+    case SHIFT_PAGES_LEFT: {
+      return { ...state, beginPage: action.beginPage, endPage: action.endPage };
+    }
+    case SHIFT_PAGES_RIGHT: {
+      return { ...state, beginPage: action.beginPage, endPage: action.endPage };
     }
 
     default:
@@ -79,6 +87,16 @@ export const setTotalUsersCountAC = (totalUsersCount) => ({
 export const toggleIsFetchingAC = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching,
+});
+export const shiftPagesLeftAC = (beginPage, endPage) => ({
+  type: SHIFT_PAGES_LEFT,
+  beginPage,
+  endPage,
+});
+export const shiftPagesRightAC = (beginPage, endPage) => ({
+  type: SHIFT_PAGES_RIGHT,
+  beginPage,
+  endPage,
 });
 
 export default usersReducer;

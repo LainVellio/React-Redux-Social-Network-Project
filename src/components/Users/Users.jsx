@@ -1,5 +1,6 @@
 import cl from './Users.module.css';
 import userPhoto from '../../assets/images/1.png';
+import Preloader from '../common/Preloader/Preloader';
 
 const Users = (props) => {
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -10,8 +11,16 @@ const Users = (props) => {
   }
 
   return (
-    <div className={`${cl.users} ${'block'}`}>
+    <div className={`${'block'}`}>
       <div>
+        <button
+          className={`${cl.numberPage}`}
+          onClick={() => {
+            props.onShiftPagesLeft();
+          }}
+        >
+          {'< '}
+        </button>
         {pages
           .map((page) => (
             <span
@@ -26,50 +35,64 @@ const Users = (props) => {
               {page}
             </span>
           ))
-          .slice(0, 10)}
+          .slice(props.beginPage, props.endPage)}
+        <button
+          className={`${cl.numberPage}`}
+          onClick={() => {
+            props.onShiftPagesRight();
+          }}
+        >
+          {' >'}
+        </button>
       </div>
-      {props.users.map((user) => (
-        <div className={`${cl.user} ${'block'}`} key={user.id}>
-          <span>
-            <div>
-              <img
-                className={cl.avatar}
-                src={user.photos.small != null ? user.photos.small : userPhoto}
-                alt="ava"
-              />
-            </div>
-            <div>
-              {user.followed ? (
-                <button
-                  onClick={() => {
-                    props.unfollow(user.id);
-                  }}
-                >
-                  Follow
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    props.follow(user.id);
-                  }}
-                >
-                  UnFollow
-                </button>
-              )}
-            </div>
-          </span>
-          <span>
+      {props.isFetching ? (
+        <Preloader />
+      ) : (
+        props.users.map((user) => (
+          <div className={`${cl.user} ${'block'}`} key={user.id}>
             <span>
-              <div>{user.name}</div>
-              <div>{user.status}</div>
+              <div>
+                <img
+                  className={cl.avatar}
+                  src={
+                    user.photos.small != null ? user.photos.small : userPhoto
+                  }
+                  alt="ava"
+                />
+              </div>
+              <div>
+                {user.followed ? (
+                  <button
+                    onClick={() => {
+                      props.unfollow(user.id);
+                    }}
+                  >
+                    Follow
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      props.follow(user.id);
+                    }}
+                  >
+                    UnFollow
+                  </button>
+                )}
+              </div>
             </span>
             <span>
-              {/*<div>{user.location.country}</div>
+              <span>
+                <div>{user.name}</div>
+                <div>{user.status}</div>
+              </span>
+              <span>
+                {/*<div>{user.location.country}</div>
             <div>{user.location.city}</div> */}
+              </span>
             </span>
-          </span>
-        </div>
-      ))}
+          </div>
+        ))
+      )}
     </div>
   );
 };

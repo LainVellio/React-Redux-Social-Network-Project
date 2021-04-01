@@ -8,6 +8,8 @@ import {
   setUsersAC,
   unfollowAC,
   toggleIsFetchingAC,
+  shiftPagesRightAC,
+  shiftPagesLeftAC,
 } from '../../redux/users-reducer';
 import * as axios from 'axios';
 import Preloader from '../common/Preloader/Preloader';
@@ -39,22 +41,48 @@ class UsersContainer extends React.Component {
       });
   };
 
+  onShiftPagesLeft = () => {
+    if (this.props.beginPage !== 0) {
+      this.props.currentPage === this.props.endPage &&
+        this.onPageChanged(this.props.currentPage - 1);
+
+      this.props.shiftPagesLeft(
+        this.props.beginPage - 1,
+        this.props.endPage - 1,
+      );
+    }
+  };
+
+  onShiftPagesRight = () => {
+    if (this.props.endPage !== this.props.totalUsersCount) {
+      this.props.currentPage - 1 === this.props.beginPage &&
+        this.onPageChanged(this.props.currentPage + 1);
+
+      this.props.shiftPagesRight(
+        this.props.beginPage + 1,
+        this.props.endPage + 1,
+      );
+    }
+  };
+
   render() {
     return (
       <>
-        {this.props.isFetching ? (
-          <Preloader />
-        ) : (
-          <Users
-            totalUsersCount={this.props.totalUsersCount}
-            pageSize={this.props.pageSize}
-            currentPage={this.props.currentPage}
-            onPageChanged={this.onPageChanged}
-            users={this.props.users}
-            follow={this.props.follow}
-            unfollow={this.props.unfollow}
-          />
-        )}
+        <Users
+          totalUsersCount={this.props.totalUsersCount}
+          pageSize={this.props.pageSize}
+          currentPage={this.props.currentPage}
+          onPageChanged={this.onPageChanged}
+          users={this.props.users}
+          follow={this.props.follow}
+          unfollow={this.props.unfollow}
+          isFetching={this.props.isFetching}
+          beginPage={this.props.beginPage}
+          endPage={this.props.endPage}
+          onShiftPagesLeft={this.onShiftPagesLeft}
+          onShiftPagesRight={this.onShiftPagesRight}
+        />
+        )
       </>
     );
   }
@@ -67,6 +95,8 @@ const mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    beginPage: state.usersPage.beginPage,
+    endPage: state.usersPage.endPage,
   };
 };
 
@@ -94,6 +124,14 @@ const mapDispatchToProps = (dispatch) => {
 
     toggleIsFetching: (isFetching) => {
       dispatch(toggleIsFetchingAC(isFetching));
+    },
+
+    shiftPagesLeft: (beginPage, endPage) => {
+      dispatch(shiftPagesLeftAC(beginPage, endPage));
+    },
+
+    shiftPagesRight: (beginPage, endPage) => {
+      dispatch(shiftPagesRightAC(beginPage, endPage));
     },
   };
 };
