@@ -1,6 +1,8 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 
 const initialState = {
   users: [
@@ -60,6 +62,10 @@ const initialState = {
         'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-256.png',
     }, */
   ],
+  pageSize: 3,
+  totalUsersCount: 0,
+  currentPage: 1,
+  endPage: 10,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -85,11 +91,25 @@ const usersReducer = (state = initialState, action) => {
           return user;
         }),
       };
+
     case SET_USERS:
       return {
         ...state,
-        users: [...action.users],
+        users: action.users,
       };
+
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      };
+
+    case SET_TOTAL_COUNT:
+      return {
+        ...state,
+        totalUsersCount: action.totalUsersCount,
+      };
+
     default:
       return state;
   }
@@ -98,5 +118,13 @@ const usersReducer = (state = initialState, action) => {
 export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
 export const followAC = (userId) => ({ type: FOLLOW, userId });
 export const setUsersAC = (users) => ({ type: SET_USERS, users });
+export const setCurrentPageAC = (currentPage) => ({
+  type: SET_CURRENT_PAGE,
+  currentPage,
+});
+export const setTotalUsersCountAC = (totalUsersCount) => ({
+  type: SET_TOTAL_COUNT,
+  totalUsersCount,
+});
 
 export default usersReducer;
