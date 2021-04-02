@@ -2,14 +2,14 @@ import React from 'react';
 import Users from './Users';
 import { connect } from 'react-redux';
 import {
-  followAC,
-  setCurrentPageAC,
-  setTotalUsersCountAC,
-  setUsersAC,
-  unfollowAC,
-  toggleIsFetchingAC,
-  shiftPagesRightAC,
-  shiftPagesLeftAC,
+  follow,
+  setCurrentPage,
+  setTotalUsersCount,
+  setUsers,
+  unfollow,
+  toggleIsFetching,
+  shiftPagesRight,
+  shiftPagesLeft,
 } from '../../redux/users-reducer';
 import * as axios from 'axios';
 import Preloader from '../common/Preloader/Preloader';
@@ -82,7 +82,6 @@ class UsersContainer extends React.Component {
           onShiftPagesLeft={this.onShiftPagesLeft}
           onShiftPagesRight={this.onShiftPagesRight}
         />
-        )
       </>
     );
   }
@@ -100,40 +99,21 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+/*const mapDispatchToProps = (dispatch) => {
   return {
-    follow: (userId) => {
-      dispatch(followAC(userId));
-    },
-
-    unfollow: (userId) => {
-      dispatch(unfollowAC(userId));
-    },
-
     setUsers: (users) => {
       dispatch(setUsersAC(users));
     },
-
-    setCurrentPage: (currentPage) => {
-      dispatch(setCurrentPageAC(currentPage));
-    },
-
-    setTotalUsersCount: (totalUsersCount) => {
-      dispatch(setTotalUsersCountAC(totalUsersCount));
-    },
-
-    toggleIsFetching: (isFetching) => {
-      dispatch(toggleIsFetchingAC(isFetching));
-    },
-
-    shiftPagesLeft: (beginPage, endPage) => {
-      dispatch(shiftPagesLeftAC(beginPage, endPage));
-    },
-
-    shiftPagesRight: (beginPage, endPage) => {
-      dispatch(shiftPagesRightAC(beginPage, endPage));
-    },
   };
-};
+};*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsers,
+  setCurrentPage,
+  setTotalUsersCount,
+  toggleIsFetching,
+  shiftPagesLeft,
+  shiftPagesRight,
+})(UsersContainer);
