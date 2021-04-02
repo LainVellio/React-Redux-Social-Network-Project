@@ -32,7 +32,7 @@ const Navbar = () => {
         </div>
         <div className={cl.item}>
           <NavLink to="/users" activeClassName={cl.active}>
-            Friends
+            Users
           </NavLink>
         </div>
       </div>

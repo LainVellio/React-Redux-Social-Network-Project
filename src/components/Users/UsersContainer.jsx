@@ -12,7 +12,6 @@ import {
   shiftPagesLeft,
 } from '../../redux/users-reducer';
 import * as axios from 'axios';
-import Preloader from '../common/Preloader/Preloader';
 
 class UsersContainer extends React.Component {
   componentDidMount() {

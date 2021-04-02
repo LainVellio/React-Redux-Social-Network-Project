@@ -1,6 +1,7 @@
 import cl from './Users.module.css';
 import userPhoto from '../../assets/images/1.png';
 import Preloader from '../common/Preloader/Preloader';
+import { NavLink } from 'react-router-dom';
 
 const Users = (props) => {
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -52,13 +53,15 @@ const Users = (props) => {
           <div className={`${cl.user} ${'block'}`} key={user.id}>
             <span>
               <div>
-                <img
-                  className={cl.avatar}
-                  src={
-                    user.photos.small != null ? user.photos.small : userPhoto
-                  }
-                  alt="ava"
-                />
+                <NavLink to={'/profile/' + user.id}>
+                  <img
+                    className={cl.avatar}
+                    src={
+                      user.photos.small != null ? user.photos.small : userPhoto
+                    }
+                    alt="ava"
+                  />
+                </NavLink>
               </div>
               <div>
                 {user.followed ? (

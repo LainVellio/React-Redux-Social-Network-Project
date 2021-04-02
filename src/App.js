@@ -3,13 +3,13 @@ import './App.css';
 import store from './redux/redux-store';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import Sidebar from './components/Sidebar/Sidebar';
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 const App = (props) => {
   return (
@@ -23,7 +23,7 @@ const App = (props) => {
         </div>
         <Route path="/dialogs" render={() => <DialogsContainer />} />
 
-        <Route path="/profile" render={() => <Profile />} />
+        <Route path="/profile" render={() => <ProfileContainer />} />
 
         <Route path="/news" component={News} />
 
