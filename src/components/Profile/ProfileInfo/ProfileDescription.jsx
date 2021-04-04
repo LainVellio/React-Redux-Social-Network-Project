@@ -21,13 +21,13 @@ const ProfileDescription = (props) => {
 
   return (
     <div className={cl.description}>
-      <div className={cl.fullName}>{props.fullName}</div>
+      <div className={cl.fullName}>{props.profile.fullName}</div>
       {statuses.map(
         (e) =>
           e.value !== null && (
             <div className={cl.description_string}>
-              <span className={cl.label}>{e.label}</span>
-              <span>{e.value}</span>
+              <div className={cl.label}>{e.label}</div>
+              <div className={cl.value}>{e.value}</div>
             </div>
           ),
       )}

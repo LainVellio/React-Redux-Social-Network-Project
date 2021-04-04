@@ -4,6 +4,7 @@
 
 .avatar {
   display: inline-block;
+  width: 300px;
 }
 
 .img_block {
@@ -35,6 +36,7 @@
   width: 150px;
   display: inline-block;
   color: gray;
+  vertical-align: top;
 }
 
 .status {
@@ -44,4 +46,9 @@
 
 .status a {
   display: block;
+}
+
+.value {
+  display: inline-block;
+  width: 215px;
 }

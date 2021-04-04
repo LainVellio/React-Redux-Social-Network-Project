@@ -22,8 +22,7 @@ const App = (props) => {
           <Sidebar users={store.getState().sidebar.users} />
         </div>
         <Route path="/dialogs" render={() => <DialogsContainer />} />
-
-        <Route path="/profile" render={() => <ProfileContainer />} />
+        <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
 
         <Route path="/news" component={News} />
 

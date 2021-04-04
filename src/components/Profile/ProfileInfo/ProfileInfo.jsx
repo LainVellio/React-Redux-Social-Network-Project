@@ -6,7 +6,6 @@ const ProfileInfo = (props) => {
   if (!props.profile) {
     return <Preloader />;
   }
-  const contacts = props.profile.contacts;
   return (
     <div className={cl.profile_content}>
       <div className={cl.description_block}>
