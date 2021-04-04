@@ -1,7 +1,6 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import store from './redux/redux-store';
-import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import News from './components/News/News';
@@ -10,11 +9,12 @@ import Settings from './components/Settings/Settings';
 import Sidebar from './components/Sidebar/Sidebar';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 const App = (props) => {
   return (
     <BrowserRouter>
-      <Header />
+      <HeaderContainer />
 
       <div className="app-wrapper">
         <div>
