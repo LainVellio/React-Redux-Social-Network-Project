@@ -16,3 +16,39 @@
   font-size: large;
   font-weight: bold;
 }
+
+.leftBlock {
+  display: inline-block;
+  width: 80px;
+}
+
+.rightBlock {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.name {
+  color: #612f00;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+.status {
+  color: grey;
+  font-size: 14px;
+}
+
+.follow {
+  background-color: rgb(116, 190, 116);
+}
+
+.unfollow {
+  background-color: #ffc085;
+}
+
+.button {
+  border: none;
+  padding: 5px;
+}

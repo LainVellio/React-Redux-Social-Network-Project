@@ -3,6 +3,7 @@
 }
 
 .avatar {
+  display: inline-block;
 }
 
 .img_block {
@@ -12,4 +13,35 @@
   overflow: hidden;
   width: 810px;
   height: 250px;
+}
+
+.description {
+  padding-left: 20px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.fullName {
+  color: #612f00;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.description_string {
+  padding-right: 20px;
+}
+
+.label {
+  width: 150px;
+  display: inline-block;
+  color: gray;
+}
+
+.status {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.status a {
+  display: block;
 }

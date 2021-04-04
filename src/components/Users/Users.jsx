@@ -51,7 +51,7 @@ const Users = (props) => {
       ) : (
         props.users.map((user) => (
           <div className={`${cl.user} ${'block'}`} key={user.id}>
-            <span>
+            <div className={cl.leftBlock}>
               <div>
                 <NavLink to={'/profile/' + user.id}>
                   <img
@@ -66,6 +66,7 @@ const Users = (props) => {
               <div>
                 {user.followed ? (
                   <button
+                    className={`${cl.button} ${cl.follow}`}
                     onClick={() => {
                       props.unfollow(user.id);
                     }}
@@ -74,6 +75,7 @@ const Users = (props) => {
                   </button>
                 ) : (
                   <button
+                    className={`${cl.button} ${cl.unfollow}`}
                     onClick={() => {
                       props.follow(user.id);
                     }}
@@ -82,17 +84,11 @@ const Users = (props) => {
                   </button>
                 )}
               </div>
-            </span>
-            <span>
-              <span>
-                <div>{user.name}</div>
-                <div>{user.status}</div>
-              </span>
-              <span>
-                {/*<div>{user.location.country}</div>
-            <div>{user.location.city}</div> */}
-              </span>
-            </span>
+            </div>
+            <div className={cl.rightBlock}>
+              <div className={cl.name}>{user.name}</div>
+              <div className={cl.status}>{user.status}</div>
+            </div>
           </div>
         ))
       )}
