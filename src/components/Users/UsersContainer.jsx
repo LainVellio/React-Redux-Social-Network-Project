@@ -2,37 +2,22 @@ import React from 'react';
 import Users from './Users';
 import { connect } from 'react-redux';
 import {
-  follow,
   setCurrentPage,
-  setTotalUsersCount,
-  setUsers,
-  unfollow,
-  toggleIsFetching,
   shiftPagesRight,
   shiftPagesLeft,
-  toggleFollowingProgress,
+  getUsers,
+  follow,
+  unfollow,
 } from '../../redux/users-reducer';
-import { usersAPI } from '../../api/api';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.toggleIsFetching(true);
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.pageSize)
-      .then((data) => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(data.items);
-        this.props.setTotalUsersCount(data.totalCount);
-      });
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.toggleIsFetching(true);
+    this.props.getUsers(pageNumber, this.props.pageSize);
     this.props.setCurrentPage(pageNumber);
-    usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
-      this.props.toggleIsFetching(false);
-      this.props.setUsers(data.items);
-    });
   };
 
   onShiftPagesLeft = () => {
@@ -59,26 +44,6 @@ class UsersContainer extends React.Component {
     }
   };
 
-  onFollowUser = (userId) => {
-    this.props.toggleFollowingProgress(true, userId);
-    usersAPI.setFollowUser(userId).then((data) => {
-      if (data.resultCode === 0) {
-        this.props.follow(userId);
-      }
-      this.props.toggleFollowingProgress(false, userId);
-    });
-  };
-
-  onUnfollowUser = (userId) => {
-    this.props.toggleFollowingProgress(true, userId);
-    usersAPI.setUnfollowUser(userId).then((data) => {
-      if (data.resultCode === 0) {
-        this.props.unfollow(userId);
-      }
-      this.props.toggleFollowingProgress(false, userId);
-    });
-  };
-
   render() {
     return (
       <>
@@ -94,8 +59,8 @@ class UsersContainer extends React.Component {
           onPageChanged={this.onPageChanged}
           onShiftPagesLeft={this.onShiftPagesLeft}
           onShiftPagesRight={this.onShiftPagesRight}
-          onFollowUser={this.onFollowUser}
-          onUnfollowUser={this.onUnfollowUser}
+          follow={this.props.follow}
+          unfollow={this.props.unfollow}
         />
       </>
     );
@@ -126,11 +91,8 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   follow,
   unfollow,
-  setUsers,
   setCurrentPage,
-  setTotalUsersCount,
-  toggleIsFetching,
   shiftPagesLeft,
   shiftPagesRight,
-  toggleFollowingProgress,
+  getUsers,
 })(UsersContainer);

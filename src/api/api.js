@@ -19,13 +19,13 @@ export const usersAPI = {
     return instance.get(`profile/${userId}`).then((response) => response.data);
   },
 
-  setFollowUser(userId) {
+  follow(userId) {
     return instance
       .post(`follow/${userId}`, {})
       .then((response) => response.data);
   },
 
-  setUnfollowUser(userId) {
+  unfollow(userId) {
     return instance
       .delete(`follow/${userId}`)
       .then((response) => response.data);

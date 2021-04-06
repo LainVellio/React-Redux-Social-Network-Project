@@ -71,7 +71,7 @@ const Users = (props) => {
                     )}
                     className={`${cl.button} ${cl.follow}`}
                     onClick={() => {
-                      props.onUnfollowUser(user.id);
+                      props.unfollow(user.id);
                     }}
                   >
                     Follow
@@ -83,7 +83,7 @@ const Users = (props) => {
                     )}
                     className={`${cl.button} ${cl.unfollow}`}
                     onClick={() => {
-                      props.onFollowUser(user.id);
+                      props.follow(user.id);
                     }}
                   >
                     UnFollow
