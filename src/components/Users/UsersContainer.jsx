@@ -10,6 +10,7 @@ import {
   toggleIsFetching,
   shiftPagesRight,
   shiftPagesLeft,
+  toggleFollowingProgress,
 } from '../../redux/users-reducer';
 import { usersAPI } from '../../api/api';
 
@@ -58,6 +59,26 @@ class UsersContainer extends React.Component {
     }
   };
 
+  onFollowUser = (userId) => {
+    this.props.toggleFollowingProgress(true, userId);
+    usersAPI.setFollowUser(userId).then((data) => {
+      if (data.resultCode === 0) {
+        this.props.follow(userId);
+      }
+      this.props.toggleFollowingProgress(false, userId);
+    });
+  };
+
+  onUnfollowUser = (userId) => {
+    this.props.toggleFollowingProgress(true, userId);
+    usersAPI.setUnfollowUser(userId).then((data) => {
+      if (data.resultCode === 0) {
+        this.props.unfollow(userId);
+      }
+      this.props.toggleFollowingProgress(false, userId);
+    });
+  };
+
   render() {
     return (
       <>
@@ -65,15 +86,16 @@ class UsersContainer extends React.Component {
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
           currentPage={this.props.currentPage}
-          onPageChanged={this.onPageChanged}
           users={this.props.users}
-          follow={this.props.follow}
-          unfollow={this.props.unfollow}
           isFetching={this.props.isFetching}
           beginPage={this.props.beginPage}
           endPage={this.props.endPage}
+          followingInProgress={this.props.followingInProgress}
+          onPageChanged={this.onPageChanged}
           onShiftPagesLeft={this.onShiftPagesLeft}
           onShiftPagesRight={this.onShiftPagesRight}
+          onFollowUser={this.onFollowUser}
+          onUnfollowUser={this.onUnfollowUser}
         />
       </>
     );
@@ -89,6 +111,7 @@ const mapStateToProps = (state) => {
     isFetching: state.usersPage.isFetching,
     beginPage: state.usersPage.beginPage,
     endPage: state.usersPage.endPage,
+    followingInProgress: state.usersPage.followingInProgress,
   };
 };
 
@@ -109,4 +132,5 @@ export default connect(mapStateToProps, {
   toggleIsFetching,
   shiftPagesLeft,
   shiftPagesRight,
+  toggleFollowingProgress,
 })(UsersContainer);
