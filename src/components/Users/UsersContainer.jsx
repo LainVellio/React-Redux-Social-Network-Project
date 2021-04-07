@@ -22,8 +22,7 @@ class UsersContainer extends React.Component {
 
   onShiftPagesLeft = () => {
     if (this.props.beginPage !== 0) {
-      this.props.currentPage === this.props.endPage &&
-        this.onPageChanged(this.props.currentPage - 1);
+      this.onPageChanged(this.props.currentPage - 1);
 
       this.props.shiftPagesLeft(
         this.props.beginPage - 1,
@@ -34,8 +33,7 @@ class UsersContainer extends React.Component {
 
   onShiftPagesRight = () => {
     if (this.props.endPage !== this.props.totalUsersCount) {
-      this.props.currentPage - 1 === this.props.beginPage &&
-        this.onPageChanged(this.props.currentPage + 1);
+      this.onPageChanged(this.props.currentPage + 1);
 
       this.props.shiftPagesRight(
         this.props.beginPage + 1,

@@ -13,7 +13,7 @@ const Users = (props) => {
 
   return (
     <div className={`${'block'}`}>
-      <div>
+      <div className={cl.scrollPages}>
         <button
           className={`${cl.numberPage}`}
           onClick={() => {

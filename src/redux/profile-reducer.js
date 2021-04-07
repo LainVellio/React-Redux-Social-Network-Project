@@ -1,6 +1,9 @@
+import { usersAPI } from '../api/api';
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 const initialState = {
   users: [
@@ -51,6 +54,7 @@ const initialState = {
   ],
   profile: null,
   newPostText: '',
+  isFetching: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -76,6 +80,9 @@ const profileReducer = (state = initialState, action) => {
     case SET_USER_PROFILE:
       return { ...state, profile: action.profile };
 
+    case TOGGLE_IS_FETCHING:
+      return { ...state, isFetching: action.isFetching };
+
     default:
       return state;
   }
@@ -92,5 +99,20 @@ export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
 });
+export const toggleIsFetching = (isFetching) => ({
+  type: TOGGLE_IS_FETCHING,
+  isFetching,
+});
+
+export const getUserProfile = (userId = 2) => {
+  return (dispatch) => {
+    debugger;
+    dispatch(toggleIsFetching(true));
+    usersAPI.getUsersProfilePage(userId).then((data) => {
+      dispatch(setUserProfile(data));
+      dispatch(toggleIsFetching(false));
+    });
+  };
+};
 
 export default profileReducer;
