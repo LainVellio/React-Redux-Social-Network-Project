@@ -10,6 +10,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import LoginPage from './components/Login/Login';
 
 const App = (props) => {
   return (
@@ -31,6 +32,8 @@ const App = (props) => {
         <Route path="/settings" component={Settings} />
 
         <Route path="/users" component={UsersContainer} />
+
+        <Route path="/login" component={LoginPage} />
       </div>
     </BrowserRouter>
   );
