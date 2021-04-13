@@ -1,8 +1,9 @@
-import { usersAPI } from '../api/api';
+import { profileAPI, usersAPI } from '../api/api';
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_USER_STATUS = 'SET_USER_STATUS';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 const initialState = {
@@ -55,6 +56,7 @@ const initialState = {
   profile: null,
   newPostText: '',
   isFetching: false,
+  status: '',
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -80,6 +82,9 @@ const profileReducer = (state = initialState, action) => {
     case SET_USER_PROFILE:
       return { ...state, profile: action.profile };
 
+    case SET_USER_STATUS:
+      return { ...state, status: action.status };
+
     case TOGGLE_IS_FETCHING:
       return { ...state, isFetching: action.isFetching };
 
@@ -99,18 +104,40 @@ export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
 });
+export const setUserStatus = (status) => ({
+  type: SET_USER_STATUS,
+  status,
+});
 export const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching,
 });
 
-export const getUserProfile = (userId = 2) => {
+export const getUserProfile = (userId = 16280) => {
   return (dispatch) => {
-    debugger;
     dispatch(toggleIsFetching(true));
-    usersAPI.getUsersProfilePage(userId).then((data) => {
+    profileAPI.getProfile(userId).then((data) => {
       dispatch(setUserProfile(data));
       dispatch(toggleIsFetching(false));
+    });
+  };
+};
+
+export const getUserStatus = (userId = 16280) => {
+  return (dispatch) => {
+    profileAPI.getStatus(userId).then((response) => {
+      dispatch(setUserStatus(response.data));
+      debugger;
+    });
+  };
+};
+
+export const updateUserStatus = (status) => {
+  return (dispatch) => {
+    profileAPI.updateStatus(status).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(setUserStatus(response.data));
+      }
     });
   };
 };
