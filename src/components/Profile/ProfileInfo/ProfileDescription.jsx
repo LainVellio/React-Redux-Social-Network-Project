@@ -1,13 +1,6 @@
 import cl from './ProfileInfo.module.css';
 
 const ProfileDescription = (props) => {
-  const statuses = [
-    { label: 'Статус:', value: props.profile.aboutMe },
-    {
-      label: 'О поиске работы:',
-      value: props.profile.lookingForAJobDescription,
-    },
-  ];
   const contacts = [
     { label: 'Facebook:', link: props.profile.contacts.facebook },
     { label: 'Website:', link: props.profile.contacts.website },
@@ -20,17 +13,7 @@ const ProfileDescription = (props) => {
   ];
 
   return (
-    <div className={cl.description}>
-      <div className={cl.fullName}>{props.profile.fullName}</div>
-      {statuses.map(
-        (e) =>
-          e.value !== null && (
-            <div className={cl.description_string}>
-              <div className={cl.label}>{e.label}</div>
-              <div className={cl.value}>{e.value}</div>
-            </div>
-          ),
-      )}
+    <div>
       {contacts.map(
         (e) =>
           e.link !== null && (

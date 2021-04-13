@@ -64,13 +64,13 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         newPostText: '',
         posts: [
-          ...state.posts,
           {
             id: 3,
             message: state.newPostText,
             likesCount: 0,
             name: 'Dmitry',
           },
+          ...state.posts,
         ],
       };
 
