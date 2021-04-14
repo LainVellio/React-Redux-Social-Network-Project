@@ -1,3 +1,4 @@
+import { Field, reduxForm } from 'redux-form';
 import cl from './MyPosts.module.css';
 import Post from './Post/Post';
 
@@ -26,31 +27,34 @@ const MyPosts = (props) => {
     />
   ));
 
-  const onAddPost = () => {
-    props.addPost();
+  const AddPostForm = (props) => {
+    return (
+      <form onSubmit={props.handleSubmit}>
+        <div>
+          <Field
+            className={cl.textarea}
+            name="post"
+            component="textarea"
+          ></Field>
+        </div>
+        <div>
+          <button className={cl.addPost}>Add post</button>
+        </div>
+      </form>
+    );
   };
 
-  const onPostChange = (e) => {
-    const text = e.target.value;
-    props.updateNewPostText(text);
+  const AddPostReduxForm = reduxForm({ form: 'newPost' })(AddPostForm);
+
+  const addNewPost = (formData) => {
+    props.addPost(formData.post);
   };
 
   return (
     <div className={cl.postBlock}>
       <h3>My posts</h3>
       <div>
-        <div>
-          <textarea
-            onChange={onPostChange}
-            className={cl.textarea}
-            value={state.newPostText}
-          />
-        </div>
-        <div>
-          <button className={cl.addPost} onClick={onAddPost}>
-            Add post
-          </button>
-        </div>
+        <AddPostReduxForm onSubmit={addNewPost} />
       </div>
       <div className={cl.posts}>{postElements}</div>
     </div>

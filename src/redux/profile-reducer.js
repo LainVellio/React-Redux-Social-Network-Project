@@ -54,7 +54,6 @@ const initialState = {
     },
   ],
   profile: null,
-  newPostText: '',
   isFetching: false,
   status: '',
 };
@@ -64,20 +63,16 @@ const profileReducer = (state = initialState, action) => {
     case ADD_POST:
       return {
         ...state,
-        newPostText: '',
         posts: [
           {
             id: 3,
-            message: state.newPostText,
+            message: action.newPost,
             likesCount: 0,
             name: 'Dmitry',
           },
           ...state.posts,
         ],
       };
-
-    case UPDATE_NEW_POST_TEXT:
-      return { ...state, newPostText: action.newText };
 
     case SET_USER_PROFILE:
       return { ...state, profile: action.profile };
@@ -93,12 +88,9 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const addPost = () => ({
+export const addPost = (newPost) => ({
   type: ADD_POST,
-});
-export const updateNewPostText = (newText) => ({
-  type: UPDATE_NEW_POST_TEXT,
-  newText,
+  newPost,
 });
 export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,

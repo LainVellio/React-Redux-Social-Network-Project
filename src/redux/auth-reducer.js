@@ -44,4 +44,10 @@ export const getAuthUserData = () => {
   };
 };
 
+export const LoginMe = (email, password, rememberMe) => {
+  return (dispatch) => {
+    authAPI.login(email, password, rememberMe);
+  };
+};
+
 export default authReducer;
