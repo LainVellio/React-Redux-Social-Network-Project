@@ -11,11 +11,10 @@ import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {
-  componentDidMount() {
+  async componentDidMount() {
     const userId = this.props.match.params.userId;
-    this.props.getUserProfile(userId);
-    this.props.getUserStatus(userId);
-    debugger;
+    await this.props.getUserProfile(userId);
+    await this.props.getUserStatus(userId);
   }
 
   render() {

@@ -127,7 +127,6 @@ export const getUserStatus = (userId = 16280) => {
   return (dispatch) => {
     profileAPI.getStatus(userId).then((response) => {
       dispatch(setUserStatus(response.data));
-      debugger;
     });
   };
 };
