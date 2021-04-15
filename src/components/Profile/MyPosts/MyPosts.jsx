@@ -1,4 +1,9 @@
 import { Field, reduxForm } from 'redux-form';
+import {
+  maxLengthCreator,
+  required,
+} from '../../../utils/validators/validators';
+import { Textarea } from '../../common/Preloader/FormsControls/FormsControls';
 import cl from './MyPosts.module.css';
 import Post from './Post/Post';
 
@@ -27,6 +32,8 @@ const MyPosts = (props) => {
     />
   ));
 
+  const maxLength10 = maxLengthCreator(10);
+
   const AddPostForm = (props) => {
     return (
       <form onSubmit={props.handleSubmit}>
@@ -34,7 +41,8 @@ const MyPosts = (props) => {
           <Field
             className={cl.textarea}
             name="post"
-            component="textarea"
+            component={Textarea}
+            validate={[required, maxLength10]}
           ></Field>
         </div>
         <div>
