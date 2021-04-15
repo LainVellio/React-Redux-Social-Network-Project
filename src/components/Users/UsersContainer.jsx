@@ -5,40 +5,55 @@ import {
   setCurrentPage,
   shiftPagesRight,
   shiftPagesLeft,
-  getUsers,
+  requestUsers,
   follow,
   unfollow,
 } from '../../redux/users-reducer';
+import {
+  getPageSize,
+  getTotalUsersCount,
+  getCurrentPage,
+  getIsFetching,
+  getFollowingInProgress,
+  getBeginPage,
+  getEndPage,
+  getUsers,
+} from '../../redux/users-selectors';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize);
     this.props.setCurrentPage(pageNumber);
   };
 
   onShiftPagesLeft = () => {
-    if (this.props.beginPage !== 0) {
+    if (this.props.currentPage !== 1) {
       this.onPageChanged(this.props.currentPage - 1);
-
-      this.props.shiftPagesLeft(
-        this.props.beginPage - 1,
-        this.props.endPage - 1,
-      );
+      if (this.props.beginPage !== 0) {
+        this.props.shiftPagesLeft(
+          this.props.beginPage - 1,
+          this.props.endPage - 1,
+        );
+      }
     }
   };
 
   onShiftPagesRight = () => {
-    if (this.props.endPage !== this.props.totalUsersCount) {
+    const totalUsersPage = Math.ceil(
+      this.props.totalUsersCount / this.props.pageSize,
+    );
+    if (this.props.currentPage !== totalUsersPage) {
       this.onPageChanged(this.props.currentPage + 1);
-
-      this.props.shiftPagesRight(
-        this.props.beginPage + 1,
-        this.props.endPage + 1,
-      );
+      if (this.props.endPage !== totalUsersPage) {
+        this.props.shiftPagesRight(
+          this.props.beginPage + 1,
+          this.props.endPage + 1,
+        );
+      }
     }
   };
 
@@ -67,14 +82,14 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    beginPage: state.usersPage.beginPage,
-    endPage: state.usersPage.endPage,
-    followingInProgress: state.usersPage.followingInProgress,
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
+    beginPage: getBeginPage(state),
+    endPage: getEndPage(state),
   };
 };
 
@@ -92,5 +107,5 @@ export default connect(mapStateToProps, {
   setCurrentPage,
   shiftPagesLeft,
   shiftPagesRight,
-  getUsers,
+  requestUsers,
 })(UsersContainer);
