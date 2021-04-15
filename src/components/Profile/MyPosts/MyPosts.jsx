@@ -3,7 +3,7 @@ import {
   maxLengthCreator,
   required,
 } from '../../../utils/validators/validators';
-import { Textarea } from '../../common/Preloader/FormsControls/FormsControls';
+import { Textarea } from '../../common/FormsControls/FormsControls';
 import cl from './MyPosts.module.css';
 import Post from './Post/Post';
 

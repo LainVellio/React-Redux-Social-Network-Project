@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { required } from '../../utils/validators/validators';
-import { Input } from '../common/Preloader/FormsControls/FormsControls';
+import { Input } from '../common/FormsControls/FormsControls';
 import { login, logout } from '../../redux/auth-reducer';
 import { Redirect } from 'react-router';
+import st from '../common/FormsControls/FormsControls.module.css';
 
 const LoginForm = (props) => {
   return (
@@ -25,11 +26,18 @@ const LoginForm = (props) => {
           validate={[required]}
         />
       </div>
-      <div>
-        <Field type={'checkbox'} name={'rememberMe'} component={Input} />
-        remember me
+      <div className={st.checkbox}>
+        <div>
+          <Field type={'checkbox'} name={'rememberMe'} component={Input} />
+        </div>
+        <label htmlFor="rememberMe">remember me</label>
       </div>
-      <button>Login</button>
+      {props.error && (
+        <div>
+          <div className={st.formSummeryError}>{props.error}</div>
+        </div>
+      )}
+      <button className={st.loginBtn}>Login</button>
     </form>
   );
 };
