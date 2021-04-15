@@ -48,7 +48,7 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) => {
   if (props.isAuth) {
-    return <Redirect to="/profile" />;
+    return <Redirect to={'/profile/' + props.userId} />;
   }
 
   const onSubmit = (formData) => {
@@ -65,6 +65,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
+  userId: state.auth.userId,
 });
 
 export default connect(mapStateToProps, { login, logout })(Login);

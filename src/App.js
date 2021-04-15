@@ -11,32 +11,49 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/Login';
+import React from 'react';
+import { connect } from 'react-redux';
+import { initializeApp } from './redux/app-reducer';
+import Preloader from './components/common/Preloader/Preloader';
 
-const App = (props) => {
-  return (
-    <BrowserRouter>
-      <HeaderContainer />
+class App extends React.Component {
+  componentDidMount() {
+    this.props.initializeApp();
+  }
 
-      <div className="app-wrapper">
-        <div>
-          <Navbar />
-          <Sidebar users={store.getState().sidebar.users} />
+  render() {
+    if (!this.props.initialized) {
+      return <Preloader />;
+    }
+    return (
+      <BrowserRouter>
+        <HeaderContainer />
+
+        <div className="app-wrapper">
+          <div>
+            <Navbar />
+            <Sidebar users={store.getState().sidebar.users} />
+          </div>
+          <Route path="/dialogs" render={() => <DialogsContainer />} />
+          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+
+          <Route path="/news" component={News} />
+
+          <Route path="/music" component={Music} />
+
+          <Route path="/settings" component={Settings} />
+
+          <Route path="/users" component={UsersContainer} />
+
+          <Route path="/login" component={LoginPage} />
         </div>
-        <Route path="/dialogs" render={() => <DialogsContainer />} />
-        <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+      </BrowserRouter>
+    );
+  }
+}
 
-        <Route path="/news" component={News} />
+const mapStateToProps = (state) => ({
+  initialized: state.app.initialized,
+});
 
-        <Route path="/music" component={Music} />
-
-        <Route path="/settings" component={Settings} />
-
-        <Route path="/users" component={UsersContainer} />
-
-        <Route path="/login" component={LoginPage} />
-      </div>
-    </BrowserRouter>
-  );
-};
-
-export default App;
+export default connect(mapStateToProps, { initializeApp })(App);

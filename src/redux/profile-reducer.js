@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const INITIALIZED_SUCCESS_PROFILE = 'INITIALIZED_SUCCESS_PROFILE';
 
 const initialState = {
   users: [
@@ -64,7 +65,7 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         posts: [
           {
-            id: 3,
+            id: state.auth.userId,
             message: action.newPost,
             likesCount: 0,
             name: 'Dmitry',
@@ -81,6 +82,12 @@ const profileReducer = (state = initialState, action) => {
 
     case TOGGLE_IS_FETCHING:
       return { ...state, isFetching: action.isFetching };
+
+    case INITIALIZED_SUCCESS_PROFILE:
+      return {
+        ...state,
+        initialized: true,
+      };
 
     default:
       return state;
@@ -103,8 +110,11 @@ export const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching,
 });
+export const initializedSuccessProfile = () => ({
+  type: INITIALIZED_SUCCESS_PROFILE,
+});
 
-export const getUserProfile = (userId = 16280) => {
+export const getUserProfile = (userId) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true));
     profileAPI.getProfile(userId).then((data) => {
@@ -114,8 +124,9 @@ export const getUserProfile = (userId = 16280) => {
   };
 };
 
-export const getUserStatus = (userId = 16280) => {
+export const getUserStatus = (userId) => {
   return (dispatch) => {
+    debugger;
     profileAPI.getStatus(userId).then((response) => {
       dispatch(setUserStatus(response.data));
     });
