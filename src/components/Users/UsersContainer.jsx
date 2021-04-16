@@ -8,6 +8,7 @@ import {
   requestUsers,
   follow,
   unfollow,
+  toggleIsFriends,
 } from '../../redux/users-reducer';
 import {
   getPageSize,
@@ -22,11 +23,29 @@ import {
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(
+      this.props.currentPage,
+      this.props.pageSize,
+      this.props.isFriends,
+    );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.isFriends !== this.props.isFriends) {
+      this.props.requestUsers(
+        this.props.currentPage,
+        this.props.pageSize,
+        this.props.isFriends,
+      );
+    }
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.requestUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(
+      pageNumber,
+      this.props.pageSize,
+      this.props.isFriends,
+    );
     this.props.setCurrentPage(pageNumber);
   };
 
@@ -74,6 +93,8 @@ class UsersContainer extends React.Component {
           onShiftPagesRight={this.onShiftPagesRight}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
+          toggleIsFriends={this.props.toggleIsFriends}
+          isFriends={this.props.isFriends}
         />
       </>
     );
@@ -90,16 +111,9 @@ const mapStateToProps = (state) => {
     followingInProgress: getFollowingInProgress(state),
     beginPage: getBeginPage(state),
     endPage: getEndPage(state),
+    isFriends: state.usersPage.isFriends,
   };
 };
-
-/*const mapDispatchToProps = (dispatch) => {
-  return {
-    setUsers: (users) => {
-      dispatch(setUsersAC(users));
-    },
-  };
-};*/
 
 export default connect(mapStateToProps, {
   follow,
@@ -108,4 +122,5 @@ export default connect(mapStateToProps, {
   shiftPagesLeft,
   shiftPagesRight,
   requestUsers,
+  toggleIsFriends,
 })(UsersContainer);

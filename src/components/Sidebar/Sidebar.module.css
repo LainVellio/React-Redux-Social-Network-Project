@@ -1,7 +1,22 @@
 .sidebar {
   margin-top: 20px;
+  width: 130px;
 }
 
 .avatar {
   width: 40px;
+}
+
+a {
+  color: black;
+}
+
+.sidebarFriend {
+  font-size: 14px;
+}
+
+.friendName {
+  padding-left: 5px;
+  display: inline-block;
+  vertical-align: 80%;
 }

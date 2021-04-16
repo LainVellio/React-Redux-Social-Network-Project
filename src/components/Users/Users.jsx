@@ -11,6 +11,16 @@ const Users = (props) => {
     pages.push(i);
   }
 
+  const onAllUsers = () => {
+    console.log(props.isFriends);
+    props.toggleIsFriends(false);
+  };
+
+  const onShowFriends = () => {
+    console.log(props.isFriends);
+    props.toggleIsFriends(true);
+  };
+
   return (
     <div className={`${'block'}`}>
       <div className={cl.scrollPages}>
@@ -100,6 +110,17 @@ const Users = (props) => {
           </div>
         ))
       )}
+      <div className={cl.friendButton}>
+        {props.isFriends ? (
+          <button className={cl.allUsersButton} onClick={onAllUsers}>
+            All Users
+          </button>
+        ) : (
+          <button className={cl.showFriends} onClick={onShowFriends}>
+            Show Friends
+          </button>
+        )}
+      </div>
     </div>
   );
 };

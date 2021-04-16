@@ -9,16 +9,21 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 const SHIFT_PAGES_LEFT = 'SHIFT_PAGES_LEFT';
 const SHIFT_PAGES_RIGHT = 'SHIFT_PAGES_RIGHT';
+const TOGGLE_IS_FRIENDS = 'TOGGLE_IS_FRIENDS';
+const SET_FRIENDS = 'SET_FRIENDS';
 
 const initialState = {
   users: [],
+  friends: [],
   pageSize: 4,
   totalUsersCount: 0,
   currentPage: 1,
   beginPage: 0,
   endPage: 12,
   isFetching: false,
+  isFriends: false,
   followingInProgress: [],
+  sidebarSize: 5,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -48,6 +53,12 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         users: action.users,
+      };
+
+    case SET_FRIENDS:
+      return {
+        ...state,
+        friends: action.friends,
       };
 
     case SET_CURRENT_PAGE:
@@ -81,6 +92,10 @@ const usersReducer = (state = initialState, action) => {
       return { ...state, beginPage: action.beginPage, endPage: action.endPage };
     }
 
+    case TOGGLE_IS_FRIENDS: {
+      return { ...state, isFriends: action.isFriends };
+    }
+
     default:
       return state;
   }
@@ -89,6 +104,7 @@ const usersReducer = (state = initialState, action) => {
 export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId });
 export const followSuccess = (userId) => ({ type: FOLLOW, userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
+export const setFriends = (friends) => ({ type: SET_FRIENDS, friends });
 export const setCurrentPage = (currentPage) => ({
   type: SET_CURRENT_PAGE,
   currentPage,
@@ -116,17 +132,29 @@ export const shiftPagesRight = (beginPage, endPage) => ({
   beginPage,
   endPage,
 });
+export const toggleIsFriends = (isFriends) => ({
+  type: TOGGLE_IS_FRIENDS,
+  isFriends,
+});
 
-export const requestUsers = (page, pageSize) => {
+export const requestUsers = (page, pageSize, isFriends) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true));
-    usersAPI.getUsers(page, pageSize).then((data) => {
+    usersAPI.getUsers(page, pageSize, isFriends).then((data) => {
       dispatch(toggleIsFetching(false));
       dispatch(setUsers(data.items));
       dispatch(setTotalUsersCount(data.totalCount));
     });
   };
 };
+export const requestFriends = (page, pageSize) => {
+  return (dispatch) => {
+    usersAPI.getUsers(page, pageSize, true).then((data) => {
+      dispatch(setFriends(data.items));
+    });
+  };
+};
+
 export const follow = (userId) => {
   return (dispatch) => {
     dispatch(toggleFollowingProgress(true, userId));
