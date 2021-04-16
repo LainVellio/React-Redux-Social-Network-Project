@@ -14,15 +14,12 @@ const ProfileDescription = (props) => {
 
   return (
     <div>
-      {contacts.map(
-        (e) =>
-          e.link !== null && (
-            <div className={cl.description_string}>
-              <span className={cl.label}>{e.label}</span>
-              <a href={e.link}>{e.link}</a>
-            </div>
-          ),
-      )}
+      {contacts.map((e) => (
+        <div className={cl.description_string}>
+          <span className={cl.label}>{e.label}</span>
+          <a href={e.link}>{e.link}</a>
+        </div>
+      ))}
     </div>
   );
 };

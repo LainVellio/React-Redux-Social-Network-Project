@@ -1,0 +1,18 @@
+.form {
+  display: inline-block;
+}
+
+.test {
+  display: inline-block;
+  margin-left: 50px;
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.test h3 {
+  margin: 32px 0 22px 0;
+}
+
+.test p {
+  margin: 0;
+}

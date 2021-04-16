@@ -6,6 +6,9 @@ class ProfileStatus extends React.Component {
     editModeCommonStatus: false,
     commonStatus: this.props.status,
     editModeJobStatus: false,
+    authUserId: this.props.authUserId,
+    profileUserId: this.props.profile.userId,
+    maxLengthStatus: 30,
   };
 
   activateEditModeCommonStatus = () => {
@@ -22,18 +25,9 @@ class ProfileStatus extends React.Component {
   };
 
   onCommonStatusChange = (e) => {
-    this.setState({ commonStatus: e.currentTarget.value });
-  };
-
-  activateEditModeJobStatus = () => {
+    const status = e.currentTarget.value;
     this.setState({
-      editModeJobStatus: true,
-    });
-  };
-
-  deactivateEditModeJobStatus = () => {
-    this.setState({
-      editModeJobStatus: false,
+      commonStatus: status.slice(0, this.state.maxLengthStatus),
     });
   };
 
@@ -49,9 +43,13 @@ class ProfileStatus extends React.Component {
       <div className={cl.statusBlock}>
         <div className={cl.description_string}>
           <div className={cl.label}>Статус:</div>
-          {!this.state.editModeCommonStatus ? (
+          {this.state.authUserId !== this.state.profileUserId ? (
+            <div className={cl.value}>
+              {this.state.commonStatus || 'Статус отсутсвует'}
+            </div>
+          ) : !this.state.editModeCommonStatus ? (
             <div
-              className={cl.value}
+              className={cl.value + ' ' + cl.pointer}
               onClick={this.activateEditModeCommonStatus}
             >
               {this.state.commonStatus || 'Статус отсутсвует'}

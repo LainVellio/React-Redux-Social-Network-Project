@@ -6,33 +6,25 @@ import {
 import { Textarea } from '../../common/FormsControls/FormsControls';
 import cl from './MyPosts.module.css';
 import Post from './Post/Post';
+import userPhoto from '../../../assets/images/1.png';
 
 const MyPosts = (props) => {
-  const state = props.profilePage;
+  const profile = props.profilePage;
 
-  const post = state.posts.map((post) => {
-    const user = state.users.find((item) => post.name === item.name);
-    return {
-      name: post.name,
-      key: post.id,
-      id: post.id,
-      likesCount: post.likesCount,
-      message: post.message,
-      avatar: user.avatar,
-    };
-  });
+  const postElements = profile.posts
+    .map((post) => (
+      <Post
+        name={post.name}
+        key={post.id}
+        message={post.message}
+        likesCount={post.likesCount}
+        avatar={userPhoto}
+        idUserPage={post.idUserPage}
+      />
+    ))
+    .filter((post) => post.props.idUserPage === profile.profile.userId);
 
-  const postElements = post.map((post) => (
-    <Post
-      name={post.name}
-      key={post.id}
-      message={post.message}
-      likesCount={post.likesCount}
-      avatar={post.avatar}
-    />
-  ));
-
-  const maxLength10 = maxLengthCreator(10);
+  const maxLength50 = maxLengthCreator(50);
 
   const AddPostForm = (props) => {
     return (
@@ -42,11 +34,13 @@ const MyPosts = (props) => {
             className={cl.textarea}
             name="post"
             component={Textarea}
-            validate={[required, maxLength10]}
+            validate={[required, maxLength50]}
           ></Field>
         </div>
         <div>
-          <button className={cl.addPost}>Add post</button>
+          <button className={cl.addPost} type="submit">
+            Add post
+          </button>
         </div>
       </form>
     );
@@ -55,7 +49,7 @@ const MyPosts = (props) => {
   const AddPostReduxForm = reduxForm({ form: 'newPost' })(AddPostForm);
 
   const addNewPost = (formData) => {
-    props.addPost(formData.post);
+    props.addPost(profile.profile.userId, formData.post, props.auth.login);
   };
 
   return (

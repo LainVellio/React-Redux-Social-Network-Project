@@ -1,4 +1,5 @@
 import { profileAPI } from '../api/api';
+import randomInteger from '../utils/randomInteger';
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -39,20 +40,7 @@ const initialState = {
         'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png',
     },
   ],
-  posts: [
-    {
-      name: 'Dmitry',
-      id: 1,
-      message: 'Встречаемся сегодня в 20:00',
-      likesCount: 12,
-    },
-    {
-      name: 'Dmitry',
-      id: 2,
-      message: 'Всем привет! Это мой первый пост',
-      likesCount: 15,
-    },
-  ],
+  posts: [],
   profile: null,
   isFetching: false,
   status: '',
@@ -65,10 +53,10 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         posts: [
           {
-            id: state.auth.userId,
-            message: action.newPost,
-            likesCount: 0,
-            name: 'Dmitry',
+            idUserPage: action.idUserPage,
+            message: action.message,
+            name: action.name,
+            likesCount: action.likesCount,
           },
           ...state.posts,
         ],
@@ -94,9 +82,12 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const addPost = (newPost) => ({
+export const addPostCreator = (idUserPage, message, name, likesCount) => ({
   type: ADD_POST,
-  newPost,
+  idUserPage,
+  message,
+  name,
+  likesCount,
 });
 export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
@@ -114,10 +105,20 @@ export const initializedSuccessProfile = () => ({
   type: INITIALIZED_SUCCESS_PROFILE,
 });
 
-export const getUserProfile = (userId) => {
+export const addPost = (idUserPage, message, name, likesCount = 0) => {
+  likesCount === 0 && (likesCount = randomInteger(0, 20));
   return (dispatch) => {
+    dispatch(addPostCreator(idUserPage, message, name, likesCount));
+  };
+};
+
+export const getUserProfile = (userId) => {
+  return async function (dispatch) {
     dispatch(toggleIsFetching(true));
-    profileAPI.getProfile(userId).then((data) => {
+    await profileAPI.getStatus(userId).then((response) => {
+      dispatch(setUserStatus(response.data));
+    });
+    await profileAPI.getProfile(userId).then((data) => {
       dispatch(setUserProfile(data));
       dispatch(toggleIsFetching(false));
     });
@@ -126,7 +127,6 @@ export const getUserProfile = (userId) => {
 
 export const getUserStatus = (userId) => {
   return (dispatch) => {
-    debugger;
     profileAPI.getStatus(userId).then((response) => {
       dispatch(setUserStatus(response.data));
     });

@@ -2,6 +2,10 @@
   width: 60px;
 }
 
+a {
+  text-decoration: none;
+}
+
 .numberPage {
   display: inline-block;
   color: #f6851e;

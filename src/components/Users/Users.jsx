@@ -92,8 +92,10 @@ const Users = (props) => {
               </div>
             </div>
             <div className={cl.rightBlock}>
-              <div className={cl.name}>{user.name}</div>
-              <div className={cl.status}>{user.status}</div>
+              <NavLink to={'/profile/' + user.id}>
+                <div className={cl.name}>{user.name}</div>
+                <div className={cl.status}>{user.status}</div>
+              </NavLink>
             </div>
           </div>
         ))

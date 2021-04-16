@@ -1,7 +1,6 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import store from './redux/redux-store';
-import Navbar from './components/Navbar/Navbar';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
@@ -15,6 +14,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { initializeApp } from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
+import NavbarContainer from './components/Navbar/NavbarContainer';
 
 class App extends React.Component {
   componentDidMount() {
@@ -31,7 +31,7 @@ class App extends React.Component {
 
         <div className="app-wrapper">
           <div>
-            <Navbar />
+            <NavbarContainer />
             <Sidebar users={store.getState().sidebar.users} />
           </div>
           <Route path="/dialogs" render={() => <DialogsContainer />} />

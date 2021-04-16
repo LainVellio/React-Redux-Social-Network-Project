@@ -4,7 +4,7 @@
 
 .avatar {
   display: inline-block;
-  width: 250px;
+  width: 260px;
 }
 
 .img_block {
@@ -18,7 +18,7 @@
 
 .description {
   padding-left: 20px;
-  width: 61%;
+  width: 60%;
   display: inline-block;
   vertical-align: top;
 }
@@ -53,17 +53,21 @@
 .value {
   display: inline-block;
   width: 215px;
+}
+
+.pointer {
   cursor: pointer;
 }
 
 .statusBlock {
   padding-bottom: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   border-bottom: 1px solid gray;
 }
 
 .input {
   outline: none;
+  width: 200px;
 }
 
 .statusPreloader {

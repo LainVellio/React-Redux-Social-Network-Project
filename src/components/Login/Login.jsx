@@ -5,10 +5,11 @@ import { Input } from '../common/FormsControls/FormsControls';
 import { login, logout } from '../../redux/auth-reducer';
 import { Redirect } from 'react-router';
 import st from '../common/FormsControls/FormsControls.module.css';
+import cl from './Login.module.css';
 
 const LoginForm = (props) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form className={cl.form} onSubmit={props.handleSubmit}>
       <div>
         <Field
           placeholder={'Email'}
@@ -57,8 +58,19 @@ const Login = (props) => {
 
   return (
     <div className="block">
-      <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} />
+      <div className={cl.form}>
+        <h1>Login</h1>
+        <LoginReduxForm onSubmit={onSubmit} />
+      </div>
+      <div className={cl.test}>
+        <h3>Тестовый акаунт</h3>
+        <p>
+          Email: <strong>free@samuraijs.com</strong>
+        </p>
+        <p>
+          Password: <strong>free</strong>
+        </p>
+      </div>
     </div>
   );
 };
