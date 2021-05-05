@@ -35,9 +35,11 @@ const Users = (props) => {
         {pages
           .map((page) => (
             <span
-              className={`${props.currentPage === page && cl.selectedPage} ${
-                cl.numberPage
-              }`}
+              className={`${
+                props.isFriends
+                  ? props.currentPageFriends === page && cl.selectedPage
+                  : props.currentPage === page && cl.selectedPage
+              } ${cl.numberPage}`}
               onClick={() => {
                 props.onPageChanged(page);
               }}

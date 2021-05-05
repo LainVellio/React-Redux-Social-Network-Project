@@ -11,6 +11,7 @@ const SHIFT_PAGES_LEFT = 'SHIFT_PAGES_LEFT';
 const SHIFT_PAGES_RIGHT = 'SHIFT_PAGES_RIGHT';
 const TOGGLE_IS_FRIENDS = 'TOGGLE_IS_FRIENDS';
 const SET_FRIENDS = 'SET_FRIENDS';
+const SET_CURRENT_PAGE_FRIENDS = 'SET_CURRENT_PAGE_FRIENDS';
 
 const initialState = {
   users: [],
@@ -18,6 +19,7 @@ const initialState = {
   pageSize: 4,
   totalUsersCount: 0,
   currentPage: 1,
+  currentPageFriends: 1,
   beginPage: 0,
   endPage: 12,
   isFetching: false,
@@ -66,6 +68,11 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         currentPage: action.currentPage,
       };
+    case SET_CURRENT_PAGE_FRIENDS:
+      return {
+        ...state,
+        currentPage: action.currentPageFriends,
+      };
     case SET_TOTAL_COUNT:
       return {
         ...state,
@@ -109,6 +116,11 @@ export const setCurrentPage = (currentPage) => ({
   type: SET_CURRENT_PAGE,
   currentPage,
 });
+export const setCurrentPageFriends = (currentPageFriends) => ({
+  type: SET_CURRENT_PAGE_FRIENDS,
+  currentPageFriends,
+});
+
 export const setTotalUsersCount = (totalUsersCount) => ({
   type: SET_TOTAL_COUNT,
   totalUsersCount,

@@ -14,6 +14,10 @@ export const getCurrentPage = (state) => {
   return state.usersPage.currentPage;
 };
 
+export const getCurrentPageFriends = (state) => {
+  return state.usersPage.currentPageFriends;
+};
+
 export const getIsFetching = (state) => {
   return state.usersPage.isFetching;
 };
