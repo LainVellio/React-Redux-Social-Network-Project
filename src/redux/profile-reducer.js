@@ -72,41 +72,31 @@ export const initializedSuccessProfile = () => ({
   type: INITIALIZED_SUCCESS_PROFILE,
 });
 
-export const addPost = (idUserPage, message, name, likesCount = 0) => {
-  return (dispatch) => {
-    dispatch(addPostCreator(idUserPage, message, name, likesCount));
-  };
+export const addPost = (idUserPage, message, name, likesCount = 0) => (
+  dispatch,
+) => {
+  dispatch(addPostCreator(idUserPage, message, name, likesCount));
 };
 
-export const getUserProfile = (userId) => {
-  return async function (dispatch) {
-    dispatch(toggleIsFetching(true));
-    await profileAPI.getStatus(userId).then((response) => {
-      dispatch(setUserStatus(response.data));
-    });
-    await profileAPI.getProfile(userId).then((data) => {
-      dispatch(setUserProfile(data));
-      dispatch(toggleIsFetching(false));
-    });
-  };
+export const getUserProfile = (userId) => async (dispatch) => {
+  dispatch(toggleIsFetching(true));
+  const responseStatus = await profileAPI.getStatus(userId);
+  dispatch(setUserStatus(responseStatus.data));
+  const responseProfile = await profileAPI.getProfile(userId);
+  dispatch(setUserProfile(responseProfile.data));
+  dispatch(toggleIsFetching(false));
 };
 
-export const getUserStatus = (userId) => {
-  return (dispatch) => {
-    profileAPI.getStatus(userId).then((response) => {
-      dispatch(setUserStatus(response.data));
-    });
-  };
+export const getUserStatus = (userId) => async (dispatch) => {
+  const response = await profileAPI.getStatus(userId);
+  dispatch(setUserStatus(response.data));
 };
 
-export const updateUserStatus = (status) => {
-  return (dispatch) => {
-    profileAPI.updateStatus(status).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setUserStatus(response.data));
-      }
-    });
-  };
+export const updateUserStatus = (status) => async (dispatch) => {
+  const response = await profileAPI.updateStatus(status);
+  if (response.data.resultCode === 0) {
+    dispatch(setUserStatus(response.data));
+  }
 };
 
 export default profileReducer;

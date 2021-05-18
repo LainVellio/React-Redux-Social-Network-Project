@@ -1,6 +1,5 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
-import store from './redux/redux-store';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
@@ -32,7 +31,7 @@ class App extends React.Component {
         <div className="app-wrapper">
           <div>
             <NavbarContainer />
-            <Sidebar users={store.getState().sidebar.users} />
+            <Sidebar />
           </div>
           <Route path="/dialogs" render={() => <DialogsContainer />} />
           <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
