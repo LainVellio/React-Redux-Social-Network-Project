@@ -1,5 +1,4 @@
 import { profileAPI } from '../api/api';
-import randomInteger from '../utils/randomInteger';
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -8,38 +7,6 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const INITIALIZED_SUCCESS_PROFILE = 'INITIALIZED_SUCCESS_PROFILE';
 
 const initialState = {
-  users: [
-    {
-      id: 1,
-      name: 'Dmitry',
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/man_male_avatar_portrait-256.png',
-    },
-    {
-      id: 2,
-      name: 'Alice',
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/suicide_squad_woman_avatar_joker-128.png',
-    },
-    {
-      id: 3,
-      name: 'Sergey',
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/boy_male_avatar_portrait-256.png',
-    },
-    {
-      id: 4,
-      name: 'Pavel',
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/punk_man_person_avatar-256.png',
-    },
-    {
-      id: 5,
-      name: 'Vadim',
-      avatar:
-        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/scientist_einstein_avatar_professor-256.png',
-    },
-  ],
   posts: [],
   profile: null,
   isFetching: false,
@@ -106,7 +73,6 @@ export const initializedSuccessProfile = () => ({
 });
 
 export const addPost = (idUserPage, message, name, likesCount = 0) => {
-  likesCount === 0 && (likesCount = randomInteger(0, 20));
   return (dispatch) => {
     dispatch(addPostCreator(idUserPage, message, name, likesCount));
   };
