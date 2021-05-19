@@ -1,19 +1,23 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import Sidebar from './components/Sidebar/Sidebar';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginPage from './components/Login/Login';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
 import { initializeApp } from './redux/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
 import NavbarContainer from './components/Navbar/NavbarContainer';
+const DialogsContainer = React.lazy(() =>
+  import('./components/Dialogs/DialogsContainer'),
+);
+const ProfileContainer = React.lazy(() =>
+  import('./components/Profile/ProfileContainer'),
+);
 
 class App extends React.Component {
   componentDidMount() {
@@ -33,18 +37,21 @@ class App extends React.Component {
             <NavbarContainer />
             <Sidebar />
           </div>
-          <Route path="/dialogs" render={() => <DialogsContainer />} />
-          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+          <Suspense fallback={<Preloader />}>
+            <Route path="/dialogs" component={DialogsContainer} />
 
-          <Route path="/news" component={News} />
+            <Route path="/profile/:userId?" component={ProfileContainer} />
 
-          <Route path="/music" component={Music} />
+            <Route path="/news" component={News} />
 
-          <Route path="/settings" component={Settings} />
+            <Route path="/music" component={Music} />
 
-          <Route path="/users" component={UsersContainer} />
+            <Route path="/settings" component={Settings} />
 
-          <Route path="/login" component={LoginPage} />
+            <Route path="/users" component={UsersContainer} />
+
+            <Route path="/login" component={LoginPage} />
+          </Suspense>
         </div>
       </BrowserRouter>
     );
