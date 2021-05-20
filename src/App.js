@@ -35,7 +35,7 @@ class App extends React.Component {
         <div className="app-wrapper">
           <div>
             <NavbarContainer />
-            <Sidebar />
+            {/* <Sidebar /> */}
           </div>
           <Suspense fallback={<Preloader />}>
             <Route path="/dialogs" component={DialogsContainer} />

@@ -1,86 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import MiniPreloader from '../../common/Preloader/MiniPreloader';
 import cl from './ProfileInfo.module.css';
 
-class ProfileStatus extends React.Component {
-  state = {
-    editModeCommonStatus: false,
-    commonStatus: this.props.status,
-    editModeJobStatus: false,
-    authUserId: this.props.authUserId,
-    profileUserId: this.props.profile.userId,
-    maxLengthStatus: 30,
+const ProfileStatus = ({
+  status,
+  authUserId,
+  profileUserId,
+  setUserStatus,
+  isFetchingStatus,
+}) => {
+  const [editModeStatus, setEditModeStatus] = useState(false);
+  const [editedStatus, setEditedStatus] = useState(status);
+
+  const activateEditModeStatus = () => {
+    setEditModeStatus(true);
   };
 
-  activateEditModeCommonStatus = () => {
-    this.setState({
-      editModeCommonStatus: true,
-    });
+  const deactivateEditModeStatus = () => {
+    setEditModeStatus(false);
+    setUserStatus(editedStatus);
   };
 
-  deactivateEditModeCommonStatus = () => {
-    this.setState({
-      editModeCommonStatus: false,
-    });
-    this.props.updateUserStatus(this.state.commonStatus);
-  };
-
-  onCommonStatusChange = (e) => {
+  const onStatusChange = (e) => {
     const status = e.currentTarget.value;
-    this.setState({
-      commonStatus: status.slice(0, this.state.maxLengthStatus),
-    });
+    const maxLengthStatus = 30;
+    setEditedStatus(status.slice(0, maxLengthStatus));
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.status !== this.props.status) {
-      this.setState({ status: this.props.status });
-    }
-  }
+  useEffect(() => setEditedStatus(status), [status]);
 
-  render() {
-    return (
-      <div className={cl.statusBlock}>
-        <div className={cl.description_string}>
-          <div className={cl.label}>Статус:</div>
-          {this.state.authUserId !== this.state.profileUserId ? (
-            <div className={cl.value}>
-              {this.state.commonStatus || 'Статус отсутсвует'}
-            </div>
-          ) : !this.state.editModeCommonStatus ? (
-            <div
-              className={cl.value + ' ' + cl.pointer}
-              onClick={this.activateEditModeCommonStatus}
-            >
-              {this.state.commonStatus || 'Статус отсутсвует'}
-            </div>
-          ) : (
-            <input
-              onChange={this.onCommonStatusChange}
-              className={cl.input}
-              autoFocus={true}
-              onBlur={this.deactivateEditModeCommonStatus}
-              value={this.state.commonStatus}
-            ></input>
-          )}
+  return (
+    <div className={cl.statusBlock}>
+      {isFetchingStatus ? (
+        <MiniPreloader />
+      ) : authUserId !== profileUserId ? (
+        <div className={cl.value}>{editedStatus || 'Статус отсутсвует'}</div>
+      ) : !editModeStatus ? (
+        <div
+          className={cl.value + ' ' + cl.pointer}
+          onClick={activateEditModeStatus}
+        >
+          {editedStatus || 'Статус отсутсвует'}
         </div>
-        <div className={cl.description_string}>
-          <div className={cl.label}>О поиске работы:</div>
-          {!this.state.editModeJobStatus ? (
-            <div className={cl.value} onClick={this.activateEditModeJobStatus}>
-              {this.props.profile.lookingForAJobDescription}
-            </div>
-          ) : (
-            <input
-              className={cl.input}
-              autoFocus={true}
-              onBlur={this.deactivateEditModeJobStatus}
-              value={this.props.profile.lookingForAJobDescription}
-            ></input>
-          )}
-        </div>
-      </div>
-    );
-  }
-}
+      ) : (
+        <input
+          onChange={onStatusChange}
+          className={cl.input}
+          autoFocus={true}
+          onBlur={deactivateEditModeStatus}
+          value={editedStatus}
+        ></input>
+      )}
+    </div>
+  );
+};
 
 export default ProfileStatus;

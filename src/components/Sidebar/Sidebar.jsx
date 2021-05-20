@@ -12,7 +12,7 @@ class SidebarContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.friends !== []) {
+    if (this.props.friends.length === 0) {
       this.props.requestFriends(1, this.props.sidebarSize);
     }
   }

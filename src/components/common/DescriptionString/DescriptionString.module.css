@@ -1,0 +1,15 @@
+.description_string {
+  padding-right: 20px;
+  height: 21px;
+}
+
+.label {
+  width: 150px;
+  display: inline-block;
+  color: gray;
+  vertical-align: top;
+}
+
+.display_none {
+  display: none;
+}

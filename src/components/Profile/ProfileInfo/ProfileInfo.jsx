@@ -2,29 +2,66 @@ import Preloader from '../../common/Preloader/Preloader';
 import ProfileDescription from './ProfileDescription';
 import cl from './ProfileInfo.module.css';
 import userPhoto from '../../../assets/images/1.png';
-import ProfileStatusWithHooks from './ProfileStatus';
+import ProfileStatus from './ProfileStatus';
 
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = ({
+  profile,
+  savePhoto,
+  authUserId,
+  status,
+  setUserStatus,
+  saveProfile,
+  isFetchingStatus,
+  isFetchingProfileInfo,
+}) => {
+  if (!profile) {
     return <Preloader />;
   }
+
+  const onMainPhotoSelected = (e) => {
+    if (e.target.files.length) {
+      savePhoto(e.target.files[0]);
+    }
+  };
+
   return (
     <div className={cl.profile_content}>
       <div className={cl.description_block}>
-        <img
-          className={cl.avatar}
-          src={props.profile.photos.large || userPhoto}
-          alt="ava"
-        />
-        <div className={cl.description}>
-          <div className={cl.fullName}>{props.profile.fullName}</div>
-          <ProfileStatusWithHooks
-            profile={props.profile}
-            status={props.status}
-            updateUserStatus={props.updateUserStatus}
-            authUserId={props.authUserId}
+        <div className={cl.photo_block}>
+          <img
+            className={cl.avatar}
+            src={profile.photos.large || userPhoto}
+            alt="ava"
           />
-          <ProfileDescription profile={props.profile} />
+          {authUserId === profile.userId && (
+            <div className={cl.load_photo_block}>
+              <label className={cl.button} htmlFor="photo">
+                Загрузить аватарку
+              </label>
+              <input
+                onChange={onMainPhotoSelected}
+                className={cl.load_photo_input}
+                type="file"
+                id="photo"
+              />
+            </div>
+          )}
+        </div>
+        <div className={cl.description}>
+          <div className={cl.fullName}>{profile.fullName}</div>
+          <ProfileStatus
+            profileUserId={profile.userId}
+            status={status}
+            setUserStatus={setUserStatus}
+            authUserId={authUserId}
+            isFetchingStatus={isFetchingStatus}
+          />
+          <ProfileDescription
+            profile={profile}
+            authUserId={authUserId}
+            saveProfile={saveProfile}
+            isFetchingProfileInfo={isFetchingProfileInfo}
+          />
         </div>
       </div>
     </div>

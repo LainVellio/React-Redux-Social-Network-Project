@@ -3,8 +3,13 @@
 }
 
 .avatar {
-  display: inline-block;
+  display: block;
   width: 260px;
+}
+
+.status_preloader {
+  width: 20px !important;
+  height: 20px;
 }
 
 .img_block {
@@ -14,6 +19,48 @@
   overflow: hidden;
   width: 810px;
   height: 250px;
+  outline: none;
+}
+
+.photo_block {
+  display: inline-block;
+}
+
+.edit_profile {
+  margin-top: 10px;
+}
+
+.button {
+  text-align: center;
+  cursor: pointer;
+  background-color: white;
+  color: #f6851e;
+  border: 1px solid #ffc085;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button:disabled {
+  cursor: auto;
+  color: grey;
+  border: 1px solid grey;
+}
+
+.load_photo_input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.load_photo_block {
+  display: flex;
+  justify-content: center;
+  margin-top: 13px;
 }
 
 .description {

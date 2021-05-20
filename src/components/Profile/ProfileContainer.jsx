@@ -1,52 +1,71 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
 import {
   getUserProfile,
   getUserStatus,
-  updateUserStatus,
+  setUserStatus,
+  savePhoto,
+  saveProfile,
 } from '../../redux/profile-reducer';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
 
-class ProfileContainer extends React.Component {
-  componentDidMount() {
-    let userId = this.props.match.params.userId;
+const ProfileContainer = ({
+  authorizedUserId,
+  profile,
+  authUserId,
+  status,
+  setUserStatus,
+  savePhoto,
+  match,
+  getUserProfile,
+  saveProfile,
+  isFetchingStatus,
+  isFetchingProfileInfo,
+}) => {
+  useEffect(() => {
+    let userId = match.params.userId;
     if (!userId) {
-      userId = this.props.authorizedUserId;
+      userId = authorizedUserId;
       if (!userId) {
         this.props.history.push('/login');
       }
     }
-    this.props.getUserProfile(userId);
-  }
+    getUserProfile(userId);
+  }, [authorizedUserId, getUserProfile, match.params.userId]);
 
-  render() {
-    return (
-      <Profile
-        {...this.props}
-        profile={this.props.profile}
-        authUserId={this.props.authUserId}
-        status={this.props.status}
-        updateUserStatus={this.props.updateUserStatus}
-      />
-    );
-  }
-}
+  return (
+    <Profile
+      profile={profile}
+      authUserId={authUserId}
+      status={status}
+      setUserStatus={setUserStatus}
+      savePhoto={savePhoto}
+      saveProfile={saveProfile}
+      isFetchingStatus={isFetchingStatus}
+      isFetchingProfileInfo={isFetchingProfileInfo}
+    />
+  );
+};
 
 const mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
   isFetching: state.profilePage.isFetching,
   status: state.profilePage.status,
+  isFetchingStatus: state.profilePage.isFetchingStatus,
+  isFetchingProfileInfo: state.profilePage.isFetchingProfileInfo,
   authUserId: state.auth.userId,
   isAuth: state.auth.isAuth,
 });
 
 export default compose(
   connect(mapStateToProps, {
-    updateUserStatus,
+    setUserStatus,
     getUserProfile,
     getUserStatus,
+    savePhoto,
+    saveProfile,
   }),
   withRouter,
 )(ProfileContainer);
