@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { required } from '../../utils/validators/validators';
-import { Input } from '../common/FormsControls/FormsControls';
+import { Checkbox, Input } from '../common/FormsControls/FormsControls';
 import { login, logout } from '../../redux/auth-reducer';
 import { Redirect } from 'react-router';
 import st from '../common/FormsControls/FormsControls.module.css';
 import cl from './Login.module.css';
 
-const LoginForm = ({ handleSubmit, error }) => {
+const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form className={cl.form} onSubmit={handleSubmit}>
       <div>
@@ -29,10 +29,19 @@ const LoginForm = ({ handleSubmit, error }) => {
       </div>
       <div className={st.checkbox}>
         <div>
-          <Field type={'checkbox'} name={'rememberMe'} component={Input} />
+          <Field type={'checkbox'} name={'rememberMe'} component={Checkbox} />
         </div>
         <label htmlFor="rememberMe">remember me</label>
       </div>
+      {captchaUrl && <img src={captchaUrl} alt="" />}
+      {captchaUrl && (
+        <Field
+          placeholder={'Symbols from image'}
+          name={'captcha'}
+          component={Input}
+          validate={[required]}
+        />
+      )}
       {error && (
         <div>
           <div className={st.formSummeryError}>{error}</div>
@@ -53,14 +62,19 @@ const Login = (props) => {
   }
 
   const onSubmit = (formData) => {
-    props.login(formData.email, formData.password, formData.rememberMe);
+    props.login(
+      formData.email,
+      formData.password,
+      formData.rememberMe,
+      formData.captcha,
+    );
   };
 
   return (
     <div className="block">
       <div className={cl.form}>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit} />
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
       </div>
       <div className={cl.test}>
         <h3>Тестовый акаунт</h3>
@@ -78,6 +92,7 @@ const Login = (props) => {
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
   userId: state.auth.userId,
+  captchaUrl: state.auth.captchaUrl,
 });
 
 export default connect(mapStateToProps, { login, logout })(Login);

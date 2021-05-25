@@ -2,6 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import TextareaStyles from './Textarea.module.css';
 import InputProfileInfoStyles from './InputProfileInfo.module.css';
+import CheckboxStyles from './Checkbox.module.css';
 
 export const FormControl = (Element, className) => ({
   input,
@@ -25,6 +26,7 @@ export const FormControl = (Element, className) => ({
 
 export const Textarea = FormControl('textarea', TextareaStyles);
 export const Input = FormControl('input', TextareaStyles);
+export const Checkbox = FormControl('input', CheckboxStyles);
 export const InputProfileInfo = FormControl('input', InputProfileInfoStyles);
 
 export const createField = (
