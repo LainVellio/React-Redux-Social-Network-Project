@@ -20,7 +20,6 @@ const Profile = (props) => {
               saveProfile={props.saveProfile}
               setUserStatus={props.setUserStatus}
               isFetchingStatus={props.isFetchingStatus}
-              isFetchingProfileInfo={props.isFetchingProfileInfo}
             />
           </div>
           <MyPostsContainer />

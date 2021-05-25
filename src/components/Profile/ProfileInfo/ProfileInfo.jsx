@@ -3,6 +3,8 @@ import ProfileDescription from './ProfileDescription';
 import cl from './ProfileInfo.module.css';
 import userPhoto from '../../../assets/images/1.png';
 import ProfileStatus from './ProfileStatus';
+import ProfileDataForm from './ProfileDataForm';
+import { useState } from 'react';
 
 const ProfileInfo = ({
   profile,
@@ -12,8 +14,9 @@ const ProfileInfo = ({
   setUserStatus,
   saveProfile,
   isFetchingStatus,
-  isFetchingProfileInfo,
 }) => {
+  const [isEditMode, setIsEditMode] = useState(false);
+
   if (!profile) {
     return <Preloader />;
   }
@@ -22,6 +25,12 @@ const ProfileInfo = ({
     if (e.target.files.length) {
       savePhoto(e.target.files[0]);
     }
+  };
+
+  const onSubmit = (formData) => {
+    saveProfile(formData).then(() => {
+      setIsEditMode(false);
+    });
   };
 
   return (
@@ -49,6 +58,7 @@ const ProfileInfo = ({
         </div>
         <div className={cl.description}>
           <div className={cl.fullName}>{profile.fullName}</div>
+
           <ProfileStatus
             profileUserId={profile.userId}
             status={status}
@@ -56,12 +66,15 @@ const ProfileInfo = ({
             authUserId={authUserId}
             isFetchingStatus={isFetchingStatus}
           />
-          <ProfileDescription
-            profile={profile}
-            authUserId={authUserId}
-            saveProfile={saveProfile}
-            isFetchingProfileInfo={isFetchingProfileInfo}
-          />
+          {isEditMode ? (
+            <ProfileDataForm initialValues={profile} onSubmit={onSubmit} />
+          ) : (
+            <ProfileDescription
+              profile={profile}
+              setIsEditMode={setIsEditMode}
+              authUserId={authUserId}
+            />
+          )}
         </div>
       </div>
     </div>

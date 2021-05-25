@@ -22,7 +22,6 @@ const ProfileContainer = ({
   getUserProfile,
   saveProfile,
   isFetchingStatus,
-  isFetchingProfileInfo,
 }) => {
   useEffect(() => {
     let userId = match.params.userId;
@@ -44,7 +43,6 @@ const ProfileContainer = ({
       savePhoto={savePhoto}
       saveProfile={saveProfile}
       isFetchingStatus={isFetchingStatus}
-      isFetchingProfileInfo={isFetchingProfileInfo}
     />
   );
 };

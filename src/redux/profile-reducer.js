@@ -1,3 +1,4 @@
+import { stopSubmit } from 'redux-form';
 import { profileAPI } from '../api/api';
 
 const ADD_POST = 'ADD-POST';
@@ -7,14 +8,12 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const INITIALIZED_SUCCESS_PROFILE = 'INITIALIZED_SUCCESS_PROFILE';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 const TOGGLE_IS_FETCHING_STATUS = 'TOGGLE_IS_FETCHING_STATUS';
-const TOGGLE_IS_FETCHING_PROFILE_INFO = 'TOGGLE_IS_FETCHING_PROFILE_INFO';
 
 const initialState = {
   posts: [],
   profile: null,
   isFetching: false,
   isFetchingStatus: false,
-  isFetchingProfileInfo: false,
   status: '',
 };
 
@@ -44,8 +43,6 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, isFetching: action.isFetching };
     case TOGGLE_IS_FETCHING_STATUS:
       return { ...state, isFetchingStatus: action.isFetchingStatus };
-    case TOGGLE_IS_FETCHING_PROFILE_INFO:
-      return { ...state, isFetchingProfileInfo: action.isFetchingProfileInfo };
 
     case INITIALIZED_SUCCESS_PROFILE:
       return {
@@ -87,10 +84,6 @@ export const toggleIsFetchingStatus = (isFetchingStatus) => ({
   type: TOGGLE_IS_FETCHING_STATUS,
   isFetchingStatus,
 });
-export const toggleIsFetchingProfileInfo = (isFetchingProfileInfo) => ({
-  type: TOGGLE_IS_FETCHING_PROFILE_INFO,
-  isFetchingProfileInfo,
-});
 export const initializedSuccessProfile = () => ({
   type: INITIALIZED_SUCCESS_PROFILE,
 });
@@ -111,12 +104,35 @@ export const savePhoto = (file) => async (dispatch) => {
     dispatch(savePhotoSuccess(response.data.data.photos));
   }
 };
-export const saveProfile = (profile) => async (dispatch) => {
-  dispatch(toggleIsFetchingProfileInfo(true));
+export const saveProfile = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
   const response = await profileAPI.saveProfile(profile);
   if (response.data.resultCode === 0) {
-    dispatch(getUserProfile(profile.userId));
-    dispatch(toggleIsFetchingProfileInfo(false));
+    await dispatch(getUserProfile(userId));
+  } else {
+    const messages = response.data.messages
+      .map((i) => {
+        const field = i.match(/(?<=\()(.*?)(?=\))/)[0];
+        const newField = field[0].toLowerCase() + field.slice(1);
+        const error = i.match(/(.*?)(?=\()/)[0];
+        return { [newField]: error };
+      })
+      .reduce(
+        (a, i) => {
+          const field = Object.keys(i)[0];
+          if (field.search('contacts') !== -1) {
+            const contact = field.match(/(?<=>)(.*?)(?=$)/)[0];
+            const newContact = contact[0].toLowerCase() + contact.slice(1);
+            const error = Object.values(i)[0];
+            return { ...a, contacts: { ...a.contacts, [newContact]: error } };
+          }
+          return Object.assign(a, i);
+        },
+        { contacts: {} },
+      );
+    console.log(messages);
+    dispatch(stopSubmit('edit-profile', messages));
+    return Promise.reject(response.data.messages[0]);
   }
 };
 

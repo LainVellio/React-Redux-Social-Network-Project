@@ -13,3 +13,7 @@
 .display_none {
   display: none;
 }
+
+.input_field {
+  display: inline-block;
+}

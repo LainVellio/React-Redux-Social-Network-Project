@@ -8,7 +8,7 @@
 }
 
 .formSummeryError {
-  display: inline-block;
+  display: block;
   border: red 1px solid;
   padding: 5px;
   color: red;
