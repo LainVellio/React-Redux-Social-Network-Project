@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import cl from './Header.module.css';
 
-const Header = (props) => {
+const Header = ({ isAuth, login, logout }) => {
   return (
     <header className={cl.header}>
       <img
@@ -9,10 +9,10 @@ const Header = (props) => {
         alt="logo"
       ></img>
       <div className={cl.loginBlock}>
-        {props.isAuth ? (
+        {isAuth ? (
           <div>
-            {props.login}
-            <button className={cl.logout} onClick={props.logout}>
+            {login}
+            <button className={cl.logout} onClick={logout}>
               Logout
             </button>
           </div>

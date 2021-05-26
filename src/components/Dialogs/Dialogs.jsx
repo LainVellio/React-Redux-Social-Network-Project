@@ -6,10 +6,8 @@ import { Field, reduxForm } from 'redux-form';
 import { Textarea } from '../common/FormsControls/FormsControls';
 import { maxLengthCreator, required } from '../../utils/validators/validators';
 
-const Dialogs = (props) => {
-  const state = props.dialogsPage;
-
-  const dialogsElements = state.users.map((dialog) => (
+const Dialogs = ({ dialogsPage, isAuth, sendMessage }) => {
+  const dialogsElements = dialogsPage.users.map((dialog) => (
     <DialogItem
       name={dialog.name}
       key={dialog.id}
@@ -18,17 +16,17 @@ const Dialogs = (props) => {
     />
   ));
 
-  const messagesElements = state.messages.map((message) => (
+  const messagesElements = dialogsPage.messages.map((message) => (
     <Message message={message.message} key={message.id} name={message.name} />
   ));
 
-  if (!props.isAuth) return <Redirect to={'/login'} />;
+  if (!isAuth) return <Redirect to={'/login'} />;
 
   const maxLength100 = maxLengthCreator(100);
 
-  const AddMessageForm = (props) => {
+  const AddMessageForm = ({ handleSubmit }) => {
     return (
-      <form onSubmit={props.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <Field
           className={cl.textarea}
           name="newMessageBody"
@@ -45,7 +43,7 @@ const Dialogs = (props) => {
   );
 
   const addNewMessage = (formData) => {
-    props.sendMessage(formData.newMessageBody);
+    sendMessage(formData.newMessageBody);
   };
 
   return (

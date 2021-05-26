@@ -8,8 +8,8 @@ import cl from './MyPosts.module.css';
 import Post from './Post/Post';
 import userPhoto from '../../../assets/images/1.png';
 
-const MyPosts = (props) => {
-  const profile = props.profilePage;
+const MyPosts = ({ profilePage, addPost, auth }) => {
+  const profile = profilePage;
 
   const postElements = profile.posts
     .map((post) => (
@@ -49,7 +49,7 @@ const MyPosts = (props) => {
   const AddPostReduxForm = reduxForm({ form: 'newPost' })(AddPostForm);
 
   const addNewPost = (formData) => {
-    props.addPost(profile.profile.userId, formData.post, props.auth.login);
+    addPost(profile.profile.userId, formData.post, auth.login);
   };
 
   return (

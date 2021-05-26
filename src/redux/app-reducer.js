@@ -2,6 +2,7 @@ import { getAuthUserData } from './auth-reducer';
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 const SET_GLOBAL_ERROR_SUCCESS = 'SET_GLOBAL_ERROR_SUCCESS';
+const SET_IS_SIDEBAR_HIDDEN = 'SET_IS_SIDEBAR_HIDDEN';
 
 const initialState = {
   initialized: false,
@@ -9,6 +10,7 @@ const initialState = {
     mainMessage: '',
     errorMessage: '',
   },
+  isSidebarHidden: false,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -27,6 +29,11 @@ const appReducer = (state = initialState, action) => {
           errorMessage: action.errorMessage,
         },
       };
+    case SET_IS_SIDEBAR_HIDDEN:
+      return {
+        ...state,
+        isSidebarHidden: action.isSidebarHidden,
+      };
 
     default:
       return state;
@@ -40,6 +47,10 @@ export const setGlobalErrorSuccess = (mainMessage, errorMessage) => ({
   type: SET_GLOBAL_ERROR_SUCCESS,
   mainMessage,
   errorMessage,
+});
+export const setIsSidebarHidden = (isSidebarHidden) => ({
+  type: SET_IS_SIDEBAR_HIDDEN,
+  isSidebarHidden,
 });
 
 export const initializeApp = () => (dispatch) => {

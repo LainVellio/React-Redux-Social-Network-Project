@@ -14,6 +14,7 @@ const ProfileInfo = ({
   setUserStatus,
   saveProfile,
   isFetchingStatus,
+  isFetchingProfileInfo,
 }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -73,6 +74,7 @@ const ProfileInfo = ({
               profile={profile}
               setIsEditMode={setIsEditMode}
               authUserId={authUserId}
+              isFetchingProfileInfo={isFetchingProfileInfo}
             />
           )}
         </div>

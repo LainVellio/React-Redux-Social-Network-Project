@@ -1,5 +1,6 @@
 import { usersAPI } from '../api/api';
 import { updateObjectInArray } from '../utils/object-helpers';
+import { setIsSidebarHidden } from './app-reducer';
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -153,8 +154,11 @@ export const requestUsers = (page, pageSize, isFriends) => async (dispatch) => {
 };
 
 export const requestFriends = (page, pageSize) => async (dispatch) => {
+  console.log('requestFriends');
   const response = await usersAPI.getUsers(page, pageSize, true);
-  dispatch(setFriends(response.data.items));
+  const friends = response.data.items;
+  friends.length === 0 && dispatch(setIsSidebarHidden(true));
+  dispatch(setFriends(friends));
 };
 
 const followUnfollowFlow = async (
@@ -162,11 +166,13 @@ const followUnfollowFlow = async (
   userId,
   apiMethod,
   actionCreator,
+  requestFriends,
 ) => {
   dispatch(toggleFollowingProgress(true, userId));
   const response = await apiMethod(userId);
   if (response.data.resultCode === 0) {
     dispatch(actionCreator(userId));
+    requestFriends(1, 5);
   }
   dispatch(toggleFollowingProgress(false.userId));
 };
@@ -177,6 +183,7 @@ export const follow = (userId) => async (dispatch) => {
     userId,
     usersAPI.follow.bind(usersAPI),
     followSuccess,
+    requestFriends,
   );
 };
 
@@ -186,6 +193,7 @@ export const unfollow = (userId) => async (dispatch) => {
     userId,
     usersAPI.unfollow.bind(usersAPI),
     unfollowSuccess,
+    requestFriends,
   );
 };
 

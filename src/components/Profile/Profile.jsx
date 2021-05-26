@@ -3,23 +3,33 @@ import MyPostsContainer from './MyPosts/MyPostsContainer';
 import cl from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-const Profile = (props) => {
+const Profile = ({
+  profile,
+  savePhoto,
+  authUserId,
+  status,
+  saveProfile,
+  setUserStatus,
+  isFetchingStatus,
+  isFetching,
+  isFetchingProfileInfo,
+}) => {
   return (
     <div className={`${cl.profile} ${'block'}`}>
-      {props.isFetching ? (
+      {isFetching ? (
         <Preloader />
       ) : (
         <div>
           <div>
             <ProfileInfo
-              profile={props.profile}
-              status={props.status}
-              updateUserStatus={props.updateUserStatus}
-              authUserId={props.authUserId}
-              savePhoto={props.savePhoto}
-              saveProfile={props.saveProfile}
-              setUserStatus={props.setUserStatus}
-              isFetchingStatus={props.isFetchingStatus}
+              profile={profile}
+              savePhoto={savePhoto}
+              authUserId={authUserId}
+              status={status}
+              saveProfile={saveProfile}
+              setUserStatus={setUserStatus}
+              isFetchingStatus={isFetchingStatus}
+              isFetchingProfileInfo={isFetchingProfileInfo}
             />
           </div>
           <MyPostsContainer />

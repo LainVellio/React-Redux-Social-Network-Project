@@ -9,12 +9,14 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const INITIALIZED_SUCCESS_PROFILE = 'INITIALIZED_SUCCESS_PROFILE';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 const TOGGLE_IS_FETCHING_STATUS = 'TOGGLE_IS_FETCHING_STATUS';
+const TOGGLE_IS_FETCHING_PROFILE_INFO = 'TOGGLE_IS_FETCHING_PROFILE_INFO';
 
 const initialState = {
   posts: [],
   profile: null,
   isFetching: false,
   isFetchingStatus: false,
+  isFetchingProfileInfo: false,
   status: '',
 };
 
@@ -44,6 +46,8 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, isFetching: action.isFetching };
     case TOGGLE_IS_FETCHING_STATUS:
       return { ...state, isFetchingStatus: action.isFetchingStatus };
+    case TOGGLE_IS_FETCHING_PROFILE_INFO:
+      return { ...state, isFetchingProfileInfo: action.isFetchingProfileInfo };
 
     case INITIALIZED_SUCCESS_PROFILE:
       return {
@@ -85,6 +89,10 @@ export const toggleIsFetchingStatus = (isFetchingStatus) => ({
   type: TOGGLE_IS_FETCHING_STATUS,
   isFetchingStatus,
 });
+export const toggleIsFetchingProfileInfo = (isFetchingProfileInfo) => ({
+  type: TOGGLE_IS_FETCHING_PROFILE_INFO,
+  isFetchingProfileInfo,
+});
 export const initializedSuccessProfile = () => ({
   type: INITIALIZED_SUCCESS_PROFILE,
 });
@@ -106,6 +114,7 @@ export const savePhoto = (file) => async (dispatch) => {
   }
 };
 export const saveProfile = (profile) => async (dispatch, getState) => {
+  dispatch(toggleIsFetchingProfileInfo(true));
   const userId = getState().auth.userId;
   const response = await profileAPI.saveProfile(profile);
   if (response.data.resultCode === 0) {
@@ -135,6 +144,7 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     dispatch(stopSubmit('edit-profile', messages));
     return Promise.reject(response.data.messages[0]);
   }
+  dispatch(toggleIsFetchingProfileInfo(false));
 };
 
 export const getUserProfile = (userId) => async (dispatch) => {
