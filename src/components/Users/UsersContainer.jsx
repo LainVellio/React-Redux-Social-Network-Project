@@ -28,6 +28,7 @@ const UsersContainer = ({
   follow,
   unfollow,
   requestUsers,
+  toggleIsFriends,
 }) => {
   useEffect(() => {
     requestUsers(
@@ -38,11 +39,11 @@ const UsersContainer = ({
   }, [currentPage, currentPageFriends, isFriends, pageSize, requestUsers]);
 
   const onAllUsers = () => {
-    this.props.toggleIsFriends(false);
+    toggleIsFriends(false);
   };
 
   const onShowFriends = () => {
-    this.props.toggleIsFriends(true);
+    toggleIsFriends(true);
   };
 
   return (

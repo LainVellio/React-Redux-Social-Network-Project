@@ -19,6 +19,7 @@ const ProfileStatus = ({
   const deactivateEditModeStatus = () => {
     setEditModeStatus(false);
     setUserStatus(editedStatus);
+    setEditedStatus(status);
   };
 
   const onStatusChange = (e) => {

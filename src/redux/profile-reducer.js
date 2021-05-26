@@ -1,5 +1,6 @@
 import { stopSubmit } from 'redux-form';
 import { profileAPI } from '../api/api';
+import { setGlobalError } from './app-reducer';
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -151,12 +152,16 @@ export const getUserStatus = (userId) => async (dispatch) => {
 };
 
 export const setUserStatus = (status) => async (dispatch) => {
-  dispatch(toggleIsFetchingStatus(true));
-  const response = await profileAPI.setStatus(status);
-  if (response.data.resultCode === 0) {
-    dispatch(setUserStatusSuccess(status));
-    dispatch(toggleIsFetchingStatus(false));
+  try {
+    dispatch(toggleIsFetchingStatus(true));
+    const response = await profileAPI.setStatus(status);
+    if (response.data.resultCode === 0) {
+      dispatch(setUserStatusSuccess(status));
+    }
+  } catch (error) {
+    dispatch(setGlobalError(error));
   }
+  dispatch(toggleIsFetchingStatus(false));
 };
 
 export default profileReducer;
