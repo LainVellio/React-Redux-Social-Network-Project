@@ -108,57 +108,73 @@ export const addPost = (idUserPage, message, name, likesCount = 0) => (
 };
 
 export const savePhoto = (file) => async (dispatch) => {
-  const response = await profileAPI.savePhoto(file);
-  if (response.data.resultCode === 0) {
-    dispatch(savePhotoSuccess(response.data.data.photos));
+  try {
+    const response = await profileAPI.savePhoto(file);
+    if (response.data.resultCode === 0) {
+      dispatch(savePhotoSuccess(response.data.data.photos));
+    }
+  } catch (error) {
+    dispatch(setGlobalError(error));
   }
 };
+
 export const saveProfile = (profile) => async (dispatch, getState) => {
-  dispatch(toggleIsFetchingProfileInfo(true));
-  const userId = getState().auth.userId;
-  const response = await profileAPI.saveProfile(profile);
-  if (response.data.resultCode === 0) {
-    await dispatch(getUserProfile(userId));
-  } else {
-    const messages = response.data.messages
-      .map((i) => {
-        const field = i.match(/(?<=\()(.*?)(?=\))/)[0];
-        const newField = field[0].toLowerCase() + field.slice(1);
-        const error = i.match(/(.*?)(?=\()/)[0];
-        return { [newField]: error };
-      })
-      .reduce(
-        (a, i) => {
-          const field = Object.keys(i)[0];
-          if (field.search('contacts') !== -1) {
-            const contact = field.match(/(?<=>)(.*?)(?=$)/)[0];
-            const newContact = contact[0].toLowerCase() + contact.slice(1);
-            const error = Object.values(i)[0];
-            return { ...a, contacts: { ...a.contacts, [newContact]: error } };
-          }
-          return Object.assign(a, i);
-        },
-        { contacts: {} },
-      );
-    console.log(messages);
-    dispatch(stopSubmit('edit-profile', messages));
-    return Promise.reject(response.data.messages[0]);
+  try {
+    dispatch(toggleIsFetchingProfileInfo(true));
+    const userId = getState().auth.userId;
+    const response = await profileAPI.saveProfile(profile);
+    if (response.data.resultCode === 0) {
+      await dispatch(getUserProfile(userId));
+    } else {
+      const messages = response.data.messages
+        .map((i) => {
+          const field = i.match(/(?<=\()(.*?)(?=\))/)[0];
+          const newField = field[0].toLowerCase() + field.slice(1);
+          const error = i.match(/(.*?)(?=\()/)[0];
+          return { [newField]: error };
+        })
+        .reduce(
+          (a, i) => {
+            const field = Object.keys(i)[0];
+            if (field.search('contacts') !== -1) {
+              const contact = field.match(/(?<=>)(.*?)(?=$)/)[0];
+              const newContact = contact[0].toLowerCase() + contact.slice(1);
+              const error = Object.values(i)[0];
+              return { ...a, contacts: { ...a.contacts, [newContact]: error } };
+            }
+            return Object.assign(a, i);
+          },
+          { contacts: {} },
+        );
+      dispatch(stopSubmit('edit-profile', messages));
+      return Promise.reject(response.data.messages[0]);
+    }
+  } catch (error) {
+    dispatch(setGlobalError(error));
   }
   dispatch(toggleIsFetchingProfileInfo(false));
 };
 
 export const getUserProfile = (userId) => async (dispatch) => {
-  dispatch(toggleIsFetching(true));
-  const responseStatus = await profileAPI.getStatus(userId);
-  dispatch(setUserStatusSuccess(responseStatus.data));
-  const responseProfile = await profileAPI.getProfile(userId);
-  dispatch(setUserProfile(responseProfile.data));
+  try {
+    dispatch(toggleIsFetching(true));
+    const responseStatus = await profileAPI.getStatus(userId);
+    dispatch(setUserStatusSuccess(responseStatus.data));
+    const responseProfile = await profileAPI.getProfile(userId);
+    dispatch(setUserProfile(responseProfile.data));
+  } catch (error) {
+    dispatch(setGlobalError(error));
+  }
   dispatch(toggleIsFetching(false));
 };
 
 export const getUserStatus = (userId) => async (dispatch) => {
-  const response = await profileAPI.getStatus(userId);
-  dispatch(setUserStatusSuccess(response.data));
+  try {
+    const response = await profileAPI.getStatus(userId);
+    dispatch(setUserStatusSuccess(response.data));
+  } catch (error) {
+    dispatch(setGlobalError(error));
+  }
 };
 
 export const setUserStatus = (status) => async (dispatch) => {

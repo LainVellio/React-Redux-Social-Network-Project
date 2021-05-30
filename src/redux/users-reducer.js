@@ -1,6 +1,6 @@
 import { usersAPI } from '../api/api';
 import { updateObjectInArray } from '../utils/object-helpers';
-import { setIsSidebarHidden } from './app-reducer';
+import { setGlobalError, setIsSidebarHidden } from './app-reducer';
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -146,19 +146,27 @@ export const toggleIsFriends = (isFriends) => ({
 });
 
 export const requestUsers = (page, pageSize, isFriends) => async (dispatch) => {
-  dispatch(toggleIsFetching(true));
-  const response = await usersAPI.getUsers(page, pageSize, isFriends);
+  try {
+    dispatch(toggleIsFetching(true));
+    const response = await usersAPI.getUsers(page, pageSize, isFriends);
+    dispatch(setUsers(response.data.items));
+    dispatch(setTotalUsersCount(response.data.totalCount));
+  } catch (error) {
+    dispatch(setGlobalError(error));
+  }
   dispatch(toggleIsFetching(false));
-  dispatch(setUsers(response.data.items));
-  dispatch(setTotalUsersCount(response.data.totalCount));
 };
 
 export const requestFriends = (page, pageSize) => async (dispatch) => {
-  console.log('requestFriends');
-  const response = await usersAPI.getUsers(page, pageSize, true);
-  const friends = response.data.items;
-  friends.length === 0 && dispatch(setIsSidebarHidden(true));
-  dispatch(setFriends(friends));
+  try {
+    const response = await usersAPI.getUsers(page, pageSize, true);
+    const friends = response.data.items;
+    console.log(friends.length);
+    friends.length === 0 && dispatch(setIsSidebarHidden(true));
+    dispatch(setFriends(friends));
+  } catch (error) {
+    dispatch(setGlobalError(error));
+  }
 };
 
 const followUnfollowFlow = async (
@@ -168,13 +176,18 @@ const followUnfollowFlow = async (
   actionCreator,
   requestFriends,
 ) => {
-  dispatch(toggleFollowingProgress(true, userId));
-  const response = await apiMethod(userId);
-  if (response.data.resultCode === 0) {
-    dispatch(actionCreator(userId));
-    requestFriends(1, 5);
+  try {
+    dispatch(toggleFollowingProgress(true, userId));
+    const response = await apiMethod(userId);
+    if (response.data.resultCode === 0) {
+      console.log('follow');
+      dispatch(actionCreator(userId));
+      requestFriends(dispatch);
+    }
+  } catch (error) {
+    dispatch(setGlobalError(error));
   }
-  dispatch(toggleFollowingProgress(false.userId));
+  dispatch(toggleFollowingProgress(false, userId));
 };
 
 export const follow = (userId) => async (dispatch) => {
@@ -183,7 +196,7 @@ export const follow = (userId) => async (dispatch) => {
     userId,
     usersAPI.follow.bind(usersAPI),
     followSuccess,
-    requestFriends,
+    requestFriends(1, 5),
   );
 };
 
@@ -193,7 +206,7 @@ export const unfollow = (userId) => async (dispatch) => {
     userId,
     usersAPI.unfollow.bind(usersAPI),
     unfollowSuccess,
-    requestFriends,
+    requestFriends(1, 5),
   );
 };
 
