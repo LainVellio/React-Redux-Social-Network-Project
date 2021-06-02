@@ -24,6 +24,7 @@ const Pagination = ({
       {pages
         .map((page) => (
           <span
+            key={page}
             className={`${
               isFriends
                 ? currentPageFriends === page && cl.selectedPage

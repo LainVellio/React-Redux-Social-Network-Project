@@ -5,20 +5,53 @@ import { Redirect } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { Textarea } from '../common/FormsControls/FormsControls';
 import { maxLengthCreator, required } from '../../utils/validators/validators';
+import { useEffect, useRef, useState } from 'react';
 
-const Dialogs = ({ dialogsPage, isAuth, sendMessage }) => {
-  const dialogsElements = dialogsPage.users.map((dialog) => (
+const Dialogs = ({
+  dialogs,
+  isAuth,
+  sendMessage,
+  friends,
+  requestFriends,
+  addNextFriendsPage,
+  selectedUserId,
+  setSelectedUserId,
+  totalCountFriends,
+  pageSize,
+  pageFriends,
+  setPageFriends,
+}) => {
+  const [isDialogsHidden, setIsDialogsHidden] = useState(true);
+  const divRef = useRef(null);
+
+  const totalCountPageFriends = Math.ceil(totalCountFriends / pageSize);
+
+  useEffect(() => {
+    requestFriends(1, (pageFriends - 1) * pageSize);
+  }, [pageSize, requestFriends]);
+
+  const dialogsElements = friends.map((friend) => (
     <DialogItem
-      name={dialog.name}
-      key={dialog.id}
-      id={dialog.id}
-      avatar={dialog.avatar}
+      name={friend.name}
+      key={friend.id}
+      id={friend.id}
+      avatar={friend.photos.small}
+      setSelectedUserId={setSelectedUserId}
     />
   ));
+  useEffect(() => {
+    friends.length === 0 ? setIsDialogsHidden(true) : setIsDialogsHidden(false);
+  }, [friends.length]);
 
-  const messagesElements = dialogsPage.messages.map((message) => (
-    <Message message={message.message} key={message.id} name={message.name} />
-  ));
+  const dialog = dialogs.find((i) => i.userId === selectedUserId);
+  const messagesElements = dialog
+    ? dialog.messages.map((message) => (
+        <Message message={message.message} key={message.id} />
+      ))
+    : [];
+  useEffect(() => {
+    divRef.current.scrollIntoView();
+  }, [messagesElements.length]);
 
   if (!isAuth) return <Redirect to={'/login'} />;
 
@@ -26,7 +59,7 @@ const Dialogs = ({ dialogsPage, isAuth, sendMessage }) => {
 
   const AddMessageForm = ({ handleSubmit }) => {
     return (
-      <form onSubmit={handleSubmit}>
+      <form className={cl.form} onSubmit={handleSubmit}>
         <Field
           className={cl.textarea}
           name="newMessageBody"
@@ -43,18 +76,37 @@ const Dialogs = ({ dialogsPage, isAuth, sendMessage }) => {
   );
 
   const addNewMessage = (formData) => {
-    sendMessage(formData.newMessageBody);
+    sendMessage(selectedUserId, formData.newMessageBody);
+  };
+
+  const onShowMoreFriends = () => {
+    addNextFriendsPage(pageFriends, pageSize);
+    setPageFriends(pageFriends + 1);
   };
 
   return (
-    <div className={cl.dialogs}>
+    <div className={isDialogsHidden ? cl.dialogsHidden : cl.dialogs}>
+      {selectedUserId && <Redirect to={`/dialogs/${selectedUserId}`} />}
       <div>
-        <div className={`${cl.dialog_items} ${'block'}`}>{dialogsElements}</div>
+        <div className={`${cl.dialog_items} ${'block'}`}>
+          {dialogsElements}
+          {totalCountPageFriends >= pageFriends && (
+            <button className={cl.showMoreButton} onClick={onShowMoreFriends}>
+              Show more friends
+            </button>
+          )}
+        </div>
       </div>
       <div>
-        <div className={`${cl.messages} ${'block'}`}>
-          {messagesElements}
-
+        <div
+          className={
+            selectedUserId ? `${cl.messages} ${'block'}` : cl.messagesNone
+          }
+        >
+          <div className={cl.messagesElements}>
+            {messagesElements}
+            <div ref={divRef} style={{ float: 'left', clear: 'both' }}></div>
+          </div>
           <AddMessageReduxForm onSubmit={addNewMessage} />
         </div>
       </div>

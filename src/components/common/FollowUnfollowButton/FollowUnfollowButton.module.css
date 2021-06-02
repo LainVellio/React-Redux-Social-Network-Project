@@ -1,0 +1,27 @@
+.follow {
+  background-color: rgb(116, 190, 116);
+  border: 1px solid rgb(116, 190, 116);
+}
+.follow:hover {
+  color: rgb(116, 190, 116);
+  background-color: white;
+}
+
+.unfollow {
+  background-color: #ffc085;
+  border: 1px solid #ffc085;
+}
+.unfollow:hover {
+  color: #f6851e;
+  background-color: white;
+}
+
+.button {
+  padding: 5px;
+  cursor: pointer;
+}
+.button:disabled {
+  color: white;
+  border: 1px solid grey;
+  background-color: grey;
+}

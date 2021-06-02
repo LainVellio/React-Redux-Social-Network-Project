@@ -1,15 +1,9 @@
 import React, { useEffect } from 'react';
 import Users from './Users';
 import { connect } from 'react-redux';
-import {
-  follow,
-  unfollow,
-  toggleIsFriends,
-  requestUsers,
-} from '../../redux/users-reducer';
+import { toggleIsFriends, requestUsers } from '../../redux/users-reducer';
 import {
   getIsFetching,
-  getFollowingInProgress,
   getUsers,
   getIsFriends,
   getCurrentPageFriends,
@@ -24,9 +18,6 @@ const UsersContainer = ({
   pageSize,
   users,
   isFetching,
-  followingInProgress,
-  follow,
-  unfollow,
   requestUsers,
   toggleIsFriends,
 }) => {
@@ -53,9 +44,6 @@ const UsersContainer = ({
       isFriends={isFriends}
       users={users}
       isFetching={isFetching}
-      followingInProgress={followingInProgress}
-      follow={follow}
-      unfollow={unfollow}
     />
   );
 };
@@ -64,7 +52,6 @@ const mapStateToProps = (state) => {
   return {
     users: getUsers(state),
     isFetching: getIsFetching(state),
-    followingInProgress: getFollowingInProgress(state),
     isFriends: getIsFriends(state),
     currentPageFriends: getCurrentPageFriends(state),
     currentPage: getCurrentPage(state),
@@ -74,7 +61,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   requestUsers,
-  follow,
-  unfollow,
   toggleIsFriends,
 })(UsersContainer);

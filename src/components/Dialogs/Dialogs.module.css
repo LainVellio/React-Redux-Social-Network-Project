@@ -1,12 +1,13 @@
 .dialogs {
   display: grid;
-  grid-template-columns: 3fr 10fr;
+  grid-template-columns: 4fr 10fr;
   grid-gap: 20px;
   grid-row-gap: 0px;
 }
 
 .dialog_items {
-  line-height: 2;
+  display: flex;
+  flex-direction: column;
 }
 
 .dialog img {
@@ -14,10 +15,24 @@
   width: 50px;
 }
 
+.friendName {
+  padding-left: 5px;
+  display: inline-block;
+  vertical-align: 80%;
+}
+
 .dialog span {
   display: inline-block;
   vertical-align: top;
   padding: 10px 0 0 10px;
+}
+
+.messagesElements {
+  overflow: auto;
+}
+
+.messagesNone {
+  display: none;
 }
 
 .dialog a {
@@ -30,6 +45,10 @@
 }
 
 .messages {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 80vh;
   font-size: 14px;
 }
 
@@ -55,13 +74,44 @@
   background-color: rgb(224, 224, 224);
 }
 
-.textarea {
-  width: 100%;
-  height: 70px;
-  resize: none;
+.dialogsHidden {
+  display: none;
+}
+
+.form {
+  display: flex;
 }
 
 .sendButton {
   display: block;
-  margin-left: auto;
+  padding: 10px;
+  background-color: #ffc085;
+  border: 1px solid #ffc085;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.sendButton:hover {
+  color: #f6851e;
+  background-color: white;
+}
+
+.showMoreButton {
+  border: none;
+  padding: 10px;
+  background-color: #ffc085;
+  border: 1px solid #ffc085;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.showMoreButton:hover {
+  color: #f6851e;
+  background-color: white;
+}
+
+.sidebarFriend {
+  transition: background-color 0.2s;
+}
+
+.sidebarFriend:hover {
+  background-color: rgb(241, 241, 241);
 }

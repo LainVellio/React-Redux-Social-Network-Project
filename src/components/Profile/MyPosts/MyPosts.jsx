@@ -28,15 +28,12 @@ const MyPosts = ({ profilePage, addPost, auth }) => {
 
   const AddPostForm = (props) => {
     return (
-      <form onSubmit={props.handleSubmit}>
-        <div>
-          <Field
-            className={cl.textarea}
-            name="post"
-            component={Textarea}
-            validate={[required, maxLength50]}
-          ></Field>
-        </div>
+      <form className={cl.form} onSubmit={props.handleSubmit}>
+        <Field
+          name="post"
+          component={Textarea}
+          validate={[required, maxLength50]}
+        ></Field>
         <div>
           <button className={cl.addPost} type="submit">
             Add post
@@ -55,9 +52,7 @@ const MyPosts = ({ profilePage, addPost, auth }) => {
   return (
     <div className={cl.postBlock}>
       <h3>My posts</h3>
-      <div>
-        <AddPostReduxForm onSubmit={addNewPost} />
-      </div>
+      <AddPostReduxForm onSubmit={addNewPost} />
       <div className={cl.posts}>{postElements}</div>
     </div>
   );

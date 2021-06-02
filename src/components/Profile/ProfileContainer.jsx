@@ -25,6 +25,7 @@ const ProfileContainer = ({
   isFetching,
   history,
   isFetchingProfileInfo,
+  user,
 }) => {
   useEffect(() => {
     let userId = match.params.userId;
@@ -48,6 +49,7 @@ const ProfileContainer = ({
       isFetchingStatus={isFetchingStatus}
       isFetching={isFetching}
       isFetchingProfileInfo={isFetchingProfileInfo}
+      user={user}
     />
   );
 };
@@ -58,6 +60,7 @@ const mapStateToProps = (state) => ({
   status: state.profilePage.status,
   isFetchingStatus: state.profilePage.isFetchingStatus,
   isFetchingProfileInfo: state.profilePage.isFetchingProfileInfo,
+  user: state.profilePage.user,
   authUserId: state.auth.userId,
   isAuth: state.auth.isAuth,
 });

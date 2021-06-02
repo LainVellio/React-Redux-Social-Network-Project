@@ -7,7 +7,11 @@ const Sidebar = ({ friends, getUserProfile }) => {
   const sidebarElements = friends.map((friend) => {
     const onUserProfile = () => getUserProfile(friend.id);
     return (
-      <NavLink to={`/profile/${friend.id}`} onClick={onUserProfile}>
+      <NavLink
+        key={friend.id}
+        to={`/profile/${friend.id}`}
+        onClick={onUserProfile}
+      >
         <div className={cl.sidebarFriend}>
           <img
             className={cl.avatar}
@@ -19,7 +23,12 @@ const Sidebar = ({ friends, getUserProfile }) => {
       </NavLink>
     );
   });
-  return <div className={`${cl.sidebar} ${'block'}`}>{sidebarElements}</div>;
+  return (
+    <div className={`${cl.sidebar} ${'block'}`}>
+      <div className={cl.heading}>Friends</div>
+      {sidebarElements}
+    </div>
+  );
 };
 
 export default Sidebar;

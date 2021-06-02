@@ -11,7 +11,6 @@ const SidebarContainer = ({
   requestFriends,
 }) => {
   useEffect(() => {
-    console.log('use Sidebar');
     requestFriends(1, sidebarSize);
   }, [friends.length, requestFriends, sidebarSize]);
 

@@ -5,6 +5,7 @@
 }
 
 .numberPage {
+  text-align: center;
   display: inline-block;
   color: #f6851e;
   cursor: pointer;
@@ -12,6 +13,9 @@
   padding: 10px;
   background-color: white;
   border: none;
+}
+.numberPage:hover {
+  background-color: rgb(241, 241, 241);
 }
 
 .selectedPage {

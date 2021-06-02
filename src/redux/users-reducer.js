@@ -1,19 +1,20 @@
 import { usersAPI } from '../api/api';
 import { updateObjectInArray } from '../utils/object-helpers';
 import { setGlobalError, setIsSidebarHidden } from './app-reducer';
+import { getUser } from './profile-reducer';
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
-const SHIFT_PAGES_LEFT = 'SHIFT_PAGES_LEFT';
-const SHIFT_PAGES_RIGHT = 'SHIFT_PAGES_RIGHT';
-const TOGGLE_IS_FRIENDS = 'TOGGLE_IS_FRIENDS';
-const SET_FRIENDS = 'SET_FRIENDS';
-const SET_CURRENT_PAGE_FRIENDS = 'SET_CURRENT_PAGE_FRIENDS';
+const FOLLOW = 'users/FOLLOW';
+const UNFOLLOW = 'users/UNFOLLOW';
+const SET_USERS = 'users/SET_USERS';
+const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
+const SET_TOTAL_COUNT = 'users/SET_TOTAL_COUNT';
+const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'users/TOGGLE_IS_FOLLOWING_PROGRESS';
+const SHIFT_PAGES_LEFT = 'users/SHIFT_PAGES_LEFT';
+const SHIFT_PAGES_RIGHT = 'users/SHIFT_PAGES_RIGHT';
+const TOGGLE_IS_FRIENDS = 'users/TOGGLE_IS_FRIENDS';
+const SET_FRIENDS = 'users/SET_FRIENDS';
+const SET_CURRENT_PAGE_FRIENDS = 'users/SET_CURRENT_PAGE_FRIENDS';
 
 const initialState = {
   users: [],
@@ -161,9 +162,8 @@ export const requestFriends = (page, pageSize) => async (dispatch) => {
   try {
     const response = await usersAPI.getUsers(page, pageSize, true);
     const friends = response.data.items;
-    console.log(friends.length);
-    friends.length === 0 && dispatch(setIsSidebarHidden(true));
     dispatch(setFriends(friends));
+    friends.length === 0 && dispatch(setIsSidebarHidden(true));
   } catch (error) {
     dispatch(setGlobalError(error));
   }
@@ -175,14 +175,17 @@ const followUnfollowFlow = async (
   apiMethod,
   actionCreator,
   requestFriends,
+  getState,
+  getUser,
 ) => {
   try {
     dispatch(toggleFollowingProgress(true, userId));
     const response = await apiMethod(userId);
+    console.log(getState());
     if (response.data.resultCode === 0) {
-      console.log('follow');
       dispatch(actionCreator(userId));
       requestFriends(dispatch);
+      await getUser(getState().profilePage.profile.fullName)(dispatch);
     }
   } catch (error) {
     dispatch(setGlobalError(error));
@@ -190,23 +193,27 @@ const followUnfollowFlow = async (
   dispatch(toggleFollowingProgress(false, userId));
 };
 
-export const follow = (userId) => async (dispatch) => {
+export const follow = (userId) => async (dispatch, getState) => {
   followUnfollowFlow(
     dispatch,
     userId,
     usersAPI.follow.bind(usersAPI),
     followSuccess,
     requestFriends(1, 5),
+    getState,
+    getUser,
   );
 };
 
-export const unfollow = (userId) => async (dispatch) => {
+export const unfollow = (userId) => async (dispatch, getState) => {
   followUnfollowFlow(
     dispatch,
     userId,
     usersAPI.unfollow.bind(usersAPI),
     unfollowSuccess,
     requestFriends(1, 5),
+    getState,
+    getUser,
   );
 };
 

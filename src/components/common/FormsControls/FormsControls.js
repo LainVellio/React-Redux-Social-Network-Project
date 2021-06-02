@@ -35,7 +35,6 @@ export const createField = (
   validators,
   component,
   props = {},
-  text = '',
 ) => (
   <Field
     placeholder={placeholder}

@@ -1,6 +1,5 @@
 .description_string {
   padding-right: 20px;
-  height: 21px;
 }
 
 .label {
@@ -16,4 +15,8 @@
 
 .input_field {
   display: inline-block;
+}
+
+.string {
+  word-wrap: break-word;
 }

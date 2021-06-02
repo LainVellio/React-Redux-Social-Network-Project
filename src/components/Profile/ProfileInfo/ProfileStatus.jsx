@@ -12,6 +12,8 @@ const ProfileStatus = ({
   const [editModeStatus, setEditModeStatus] = useState(false);
   const [editedStatus, setEditedStatus] = useState(status);
 
+  const isMyPage = authUserId === profileUserId;
+
   const activateEditModeStatus = () => {
     setEditModeStatus(true);
   };
@@ -34,11 +36,11 @@ const ProfileStatus = ({
     <div className={cl.statusBlock}>
       {isFetchingStatus ? (
         <MiniPreloader />
-      ) : authUserId !== profileUserId ? (
+      ) : !isMyPage ? (
         <div className={cl.value}>{editedStatus || 'Статус отсутсвует'}</div>
       ) : !editModeStatus ? (
         <div
-          className={cl.value + ' ' + cl.pointer}
+          className={cl.myPageValue + ' ' + cl.pointer}
           onClick={activateEditModeStatus}
         >
           {editedStatus || 'Статус отсутсвует'}

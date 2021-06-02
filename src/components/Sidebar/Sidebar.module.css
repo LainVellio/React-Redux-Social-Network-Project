@@ -13,10 +13,20 @@ a {
 
 .sidebarFriend {
   font-size: 14px;
+  transition: background-color 0.2s;
+}
+.sidebarFriend:hover {
+  background-color: rgb(241, 241, 241);
 }
 
 .friendName {
   padding-left: 5px;
   display: inline-block;
   vertical-align: 80%;
+}
+
+.heading {
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 20px;
 }

@@ -15,6 +15,10 @@ export const usersAPI = {
     );
   },
 
+  findUser(name = '') {
+    return instance.get(`users?term=${name}`);
+  },
+
   follow(userId) {
     return instance.post(`follow/${userId}`, {});
   },

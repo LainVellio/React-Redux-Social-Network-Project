@@ -1,19 +1,22 @@
 import { stopSubmit } from 'redux-form';
-import { profileAPI } from '../api/api';
+import { profileAPI, usersAPI } from '../api/api';
 import { setGlobalError } from './app-reducer';
 
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_USER_STATUS = 'SET_USER_STATUS';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const INITIALIZED_SUCCESS_PROFILE = 'INITIALIZED_SUCCESS_PROFILE';
-const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
-const TOGGLE_IS_FETCHING_STATUS = 'TOGGLE_IS_FETCHING_STATUS';
-const TOGGLE_IS_FETCHING_PROFILE_INFO = 'TOGGLE_IS_FETCHING_PROFILE_INFO';
+const ADD_POST = 'profilePage/ADD-POST';
+const SET_USER_PROFILE = 'profilePage/SET_USER_PROFILE';
+const SET_USER_STATUS = 'profilePage/SET_USER_STATUS';
+const TOGGLE_IS_FETCHING = 'profilePage/TOGGLE_IS_FETCHING';
+const INITIALIZED_SUCCESS_PROFILE = 'profilePage/INITIALIZED_SUCCESS_PROFILE';
+const SAVE_PHOTO_SUCCESS = 'profilePage/SAVE_PHOTO_SUCCESS';
+const TOGGLE_IS_FETCHING_STATUS = 'profilePage/TOGGLE_IS_FETCHING_STATUS';
+const TOGGLE_IS_FETCHING_PROFILE_INFO =
+  'profilePage/TOGGLE_IS_FETCHING_PROFILE_INFO';
+const SET_USER_SUCCESS = 'profilePage/SET_USER_SUCCESS';
 
 const initialState = {
   posts: [],
   profile: null,
+  user: {},
   isFetching: false,
   isFetchingStatus: false,
   isFetchingProfileInfo: false,
@@ -31,6 +34,7 @@ const profileReducer = (state = initialState, action) => {
             message: action.message,
             name: action.name,
             likesCount: action.likesCount,
+            id: state.posts.length,
           },
           ...state.posts,
         ],
@@ -59,6 +63,12 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: { ...state.profile, photos: action.photos },
+      };
+
+    case SET_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.user,
       };
 
     default:
@@ -99,6 +109,10 @@ export const initializedSuccessProfile = () => ({
 export const savePhotoSuccess = (photos) => ({
   type: SAVE_PHOTO_SUCCESS,
   photos,
+});
+export const setUserSuccess = (user) => ({
+  type: SET_USER_SUCCESS,
+  user,
 });
 
 export const addPost = (idUserPage, message, name, likesCount = 0) => (
@@ -162,6 +176,7 @@ export const getUserProfile = (userId) => async (dispatch) => {
     dispatch(setUserStatusSuccess(responseStatus.data));
     const responseProfile = await profileAPI.getProfile(userId);
     dispatch(setUserProfile(responseProfile.data));
+    await getUser(responseProfile.data.fullName)(dispatch);
   } catch (error) {
     dispatch(setGlobalError(error));
   }
@@ -175,6 +190,11 @@ export const getUserStatus = (userId) => async (dispatch) => {
   } catch (error) {
     dispatch(setGlobalError(error));
   }
+};
+
+export const getUser = (fullName) => async (dispatch) => {
+  const responseUser = await usersAPI.findUser(fullName);
+  dispatch(setUserSuccess(responseUser.data.items[0]));
 };
 
 export const setUserStatus = (status) => async (dispatch) => {

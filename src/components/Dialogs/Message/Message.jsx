@@ -1,8 +1,8 @@
 import cl from '../Dialogs.module.css';
 
-const Message = ({ name, message }) => {
+const Message = ({ message }) => {
   return (
-    <div className={name === 'Dmitry' ? cl.message_mine : cl.message_foreign}>
+    <div className={cl.message_mine}>
       <span>{message}</span>
     </div>
   );

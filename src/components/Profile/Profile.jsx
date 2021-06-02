@@ -13,6 +13,7 @@ const Profile = ({
   isFetchingStatus,
   isFetching,
   isFetchingProfileInfo,
+  user,
 }) => {
   return (
     <div className={`${cl.profile} ${'block'}`}>
@@ -30,6 +31,7 @@ const Profile = ({
               setUserStatus={setUserStatus}
               isFetchingStatus={isFetchingStatus}
               isFetchingProfileInfo={isFetchingProfileInfo}
+              user={user}
             />
           </div>
           <MyPostsContainer />

@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import cl from './Users.module.css';
 import userPhoto from '../../assets/images/1.png';
+import FolloUnfollowButton from '../common/FollowUnfollowButton/FollowUnfollowButton';
 
-const User = ({ user, followingInProgress, follow, unfollow }) => (
+const User = ({ user }) => (
   <div className={`${cl.user} ${'block'}`} key={user.id}>
     <div className={cl.leftBlock}>
       <div>
@@ -15,27 +16,7 @@ const User = ({ user, followingInProgress, follow, unfollow }) => (
         </NavLink>
       </div>
       <div>
-        {user.followed ? (
-          <button
-            disabled={followingInProgress.some((id) => id === user.id)}
-            className={`${cl.button} ${cl.follow}`}
-            onClick={() => {
-              unfollow(user.id);
-            }}
-          >
-            Follow
-          </button>
-        ) : (
-          <button
-            disabled={followingInProgress.some((id) => id === user.id)}
-            className={`${cl.button} ${cl.unfollow}`}
-            onClick={() => {
-              follow(user.id);
-            }}
-          >
-            UnFollow
-          </button>
-        )}
+        <FolloUnfollowButton user={user} />
       </div>
     </div>
     <div className={cl.rightBlock}>

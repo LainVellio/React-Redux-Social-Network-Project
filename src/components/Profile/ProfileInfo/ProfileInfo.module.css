@@ -33,13 +33,17 @@
 .button {
   text-align: center;
   cursor: pointer;
-  background-color: white;
-  color: #f6851e;
+  background-color: #ffc085;
   border: 1px solid #ffc085;
   padding: 5px;
   cursor: pointer;
   font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.2s;
+}
+.button:hover {
+  color: #f6851e;
+  background-color: white;
 }
 
 .button:disabled {
@@ -99,7 +103,16 @@
 
 .value {
   display: inline-block;
-  width: 215px;
+  width: 425px;
+}
+
+.myPageValue {
+  display: inline-block;
+  width: 425px;
+  transition: background-color 0.2s;
+}
+.myPageValue:hover {
+  background-color: rgb(241, 241, 241);
 }
 
 .pointer {
@@ -120,4 +133,9 @@
 .statusPreloader {
   width: 10px;
   height: 10px;
+}
+
+.follow {
+  display: flex;
+  justify-content: center;
 }
