@@ -10,7 +10,7 @@ const initialState = {
     mainMessage: '',
     errorMessage: '',
   },
-  isSidebarHidden: false,
+  isSidebarHidden: true,
 };
 
 const appReducer = (state = initialState, action) => {
