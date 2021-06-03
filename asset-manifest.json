@@ -1,23 +1,31 @@
 {
   "files": {
-    "main.css": "/React-Redux-Social-Network-Project/static/css/main.b666cfb9.chunk.css",
-    "main.js": "/React-Redux-Social-Network-Project/static/js/main.0db64469.chunk.js",
-    "main.js.map": "/React-Redux-Social-Network-Project/static/js/main.0db64469.chunk.js.map",
-    "runtime-main.js": "/React-Redux-Social-Network-Project/static/js/runtime-main.6ae87cb8.js",
-    "runtime-main.js.map": "/React-Redux-Social-Network-Project/static/js/runtime-main.6ae87cb8.js.map",
-    "static/js/2.a69308a3.chunk.js": "/React-Redux-Social-Network-Project/static/js/2.a69308a3.chunk.js",
-    "static/js/2.a69308a3.chunk.js.map": "/React-Redux-Social-Network-Project/static/js/2.a69308a3.chunk.js.map",
-    "static/js/3.827e0760.chunk.js": "/React-Redux-Social-Network-Project/static/js/3.827e0760.chunk.js",
-    "static/js/3.827e0760.chunk.js.map": "/React-Redux-Social-Network-Project/static/js/3.827e0760.chunk.js.map",
-    "index.html": "/React-Redux-Social-Network-Project/index.html",
-    "static/css/main.b666cfb9.chunk.css.map": "/React-Redux-Social-Network-Project/static/css/main.b666cfb9.chunk.css.map",
-    "static/js/2.a69308a3.chunk.js.LICENSE.txt": "/React-Redux-Social-Network-Project/static/js/2.a69308a3.chunk.js.LICENSE.txt",
-    "static/media/1.e36dde25.png": "/React-Redux-Social-Network-Project/static/media/1.e36dde25.png"
+    "main.css": "/React.Redux.Social.Network.Project/static/css/main.b9a470bd.chunk.css",
+    "main.js": "/React.Redux.Social.Network.Project/static/js/main.d6ec9c4a.chunk.js",
+    "main.js.map": "/React.Redux.Social.Network.Project/static/js/main.d6ec9c4a.chunk.js.map",
+    "runtime-main.js": "/React.Redux.Social.Network.Project/static/js/runtime-main.c1947106.js",
+    "runtime-main.js.map": "/React.Redux.Social.Network.Project/static/js/runtime-main.c1947106.js.map",
+    "static/js/2.564e82ec.chunk.js": "/React.Redux.Social.Network.Project/static/js/2.564e82ec.chunk.js",
+    "static/js/2.564e82ec.chunk.js.map": "/React.Redux.Social.Network.Project/static/js/2.564e82ec.chunk.js.map",
+    "static/css/3.8b647858.chunk.css": "/React.Redux.Social.Network.Project/static/css/3.8b647858.chunk.css",
+    "static/js/3.af181061.chunk.js": "/React.Redux.Social.Network.Project/static/js/3.af181061.chunk.js",
+    "static/js/3.af181061.chunk.js.map": "/React.Redux.Social.Network.Project/static/js/3.af181061.chunk.js.map",
+    "static/css/4.de4208f5.chunk.css": "/React.Redux.Social.Network.Project/static/css/4.de4208f5.chunk.css",
+    "static/js/4.efdfa675.chunk.js": "/React.Redux.Social.Network.Project/static/js/4.efdfa675.chunk.js",
+    "static/js/4.efdfa675.chunk.js.map": "/React.Redux.Social.Network.Project/static/js/4.efdfa675.chunk.js.map",
+    "static/js/5.e579d69a.chunk.js": "/React.Redux.Social.Network.Project/static/js/5.e579d69a.chunk.js",
+    "static/js/5.e579d69a.chunk.js.map": "/React.Redux.Social.Network.Project/static/js/5.e579d69a.chunk.js.map",
+    "index.html": "/React.Redux.Social.Network.Project/index.html",
+    "static/css/3.8b647858.chunk.css.map": "/React.Redux.Social.Network.Project/static/css/3.8b647858.chunk.css.map",
+    "static/css/4.de4208f5.chunk.css.map": "/React.Redux.Social.Network.Project/static/css/4.de4208f5.chunk.css.map",
+    "static/css/main.b9a470bd.chunk.css.map": "/React.Redux.Social.Network.Project/static/css/main.b9a470bd.chunk.css.map",
+    "static/js/2.564e82ec.chunk.js.LICENSE.txt": "/React.Redux.Social.Network.Project/static/js/2.564e82ec.chunk.js.LICENSE.txt",
+    "static/media/1.png": "/React.Redux.Social.Network.Project/static/media/1.e36dde25.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.6ae87cb8.js",
-    "static/js/2.a69308a3.chunk.js",
-    "static/css/main.b666cfb9.chunk.css",
-    "static/js/main.0db64469.chunk.js"
+    "static/js/runtime-main.c1947106.js",
+    "static/js/2.564e82ec.chunk.js",
+    "static/css/main.b9a470bd.chunk.css",
+    "static/js/main.d6ec9c4a.chunk.js"
   ]
 }
