@@ -38,7 +38,7 @@ const App = ({ initialized, globalError, initializeApp, setGlobalError }) => {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <HeaderContainer />
 
       <div className="app-wrapper">
