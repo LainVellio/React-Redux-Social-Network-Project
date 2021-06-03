@@ -1,4 +1,9 @@
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import {
+  HashRouter as BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import './App.css';
 import News from './components/News/News';
 import Music from './components/Music/Music';
@@ -13,6 +18,7 @@ import Preloader from './components/common/Preloader/Preloader';
 import NavbarContainer from './components/Navbar/NavbarContainer';
 import ErrorMessage from './components/common/ErrorMessage/ErrorMessage';
 import SidebarContainer from './components/Sidebar/SidebarContainer';
+
 const DialogsContainer = React.lazy(() =>
   import('./components/Dialogs/DialogsContainer'),
 );
@@ -38,7 +44,7 @@ const App = ({ initialized, globalError, initializeApp, setGlobalError }) => {
   }
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter>
       <HeaderContainer />
 
       <div className="app-wrapper">

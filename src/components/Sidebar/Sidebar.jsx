@@ -3,7 +3,7 @@ import cl from './Sidebar.module.css';
 import userPhoto from '../../assets/images/1.png';
 import { NavLink } from 'react-router-dom';
 
-const Sidebar = ({ friends, getUserProfile, isSidebarHidden }) => {
+const Sidebar = ({ friends, getUserProfile }) => {
   const sidebarElements = friends.map((friend) => {
     const onUserProfile = () => getUserProfile(friend.id);
     return (
@@ -25,7 +25,9 @@ const Sidebar = ({ friends, getUserProfile, isSidebarHidden }) => {
   });
   return (
     <div
-      className={`${cl.sidebar} ${'block'} ${isSidebarHidden ? cl.hidden : ''}`}
+      className={`${cl.sidebar} ${'block'} ${
+        friends.length === 0 ? cl.hidden : ''
+      }`}
     >
       <div className={cl.heading}>Friends</div>
       {sidebarElements}

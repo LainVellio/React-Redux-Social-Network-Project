@@ -10,23 +10,12 @@ export const getUsers = (state) => {
   },
 ); */
 
-export const getPageSize = (state) => {
-  return state.usersPage.pageSize;
+export const getFriends = (state) => {
+  return state.usersPage.friends;
 };
 
-export const getTotalUsersCount = (state) => {
-  return state.usersPage.totalUsersCount;
-};
-
-export const getCurrentPage = (state) => {
-  return state.usersPage.currentPage;
-};
 export const getIsFriends = (state) => {
   return state.usersPage.isFriends;
-};
-
-export const getCurrentPageFriends = (state) => {
-  return state.usersPage.currentPageFriends;
 };
 
 export const getIsFetching = (state) => {
@@ -35,12 +24,4 @@ export const getIsFetching = (state) => {
 
 export const getFollowingInProgress = (state) => {
   return state.usersPage.followingInProgress;
-};
-
-export const getBeginPage = (state) => {
-  return state.usersPage.beginPage;
-};
-
-export const getEndPage = (state) => {
-  return state.usersPage.endPage;
 };

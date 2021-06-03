@@ -35,7 +35,7 @@ const ProfileContainer = ({
         history.push('/login');
       }
     }
-    getUserProfile(userId);
+    userId && getUserProfile(userId);
   }, [authorizedUserId, getUserProfile, history, match.params.userId]);
 
   return (

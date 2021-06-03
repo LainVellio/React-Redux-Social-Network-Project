@@ -1,33 +1,30 @@
 import React, { useEffect } from 'react';
 import Users from './Users';
 import { connect } from 'react-redux';
-import { toggleIsFriends, requestUsers } from '../../redux/users-reducer';
+import {
+  toggleIsFriends,
+  requestUsers,
+  requestFriends,
+} from '../../redux/users-reducer';
 import {
   getIsFetching,
   getUsers,
   getIsFriends,
-  getCurrentPageFriends,
-  getCurrentPage,
-  getPageSize,
+  getFriends,
 } from '../../redux/users-selectors';
 
 const UsersContainer = ({
   isFriends,
-  currentPageFriends,
-  currentPage,
-  pageSize,
   users,
+  friends,
   isFetching,
   requestUsers,
+  requestFriends,
   toggleIsFriends,
 }) => {
   useEffect(() => {
-    requestUsers(
-      isFriends ? currentPageFriends : currentPage,
-      pageSize,
-      isFriends,
-    );
-  }, [currentPage, currentPageFriends, isFriends, pageSize, requestUsers]);
+    isFriends ? requestFriends(1, 4) : requestUsers(1, 4);
+  }, [isFriends, requestFriends, requestUsers]);
 
   const onAllUsers = () => {
     toggleIsFriends(false);
@@ -43,7 +40,10 @@ const UsersContainer = ({
       onShowFriends={onShowFriends}
       isFriends={isFriends}
       users={users}
+      friends={friends}
       isFetching={isFetching}
+      requestUsers={requestUsers}
+      requestFriends={requestFriends}
     />
   );
 };
@@ -51,15 +51,14 @@ const UsersContainer = ({
 const mapStateToProps = (state) => {
   return {
     users: getUsers(state),
+    friends: getFriends(state),
     isFetching: getIsFetching(state),
     isFriends: getIsFriends(state),
-    currentPageFriends: getCurrentPageFriends(state),
-    currentPage: getCurrentPage(state),
-    pageSize: getPageSize(state),
   };
 };
 
 export default connect(mapStateToProps, {
   requestUsers,
+  requestFriends,
   toggleIsFriends,
 })(UsersContainer);

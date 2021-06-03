@@ -1,42 +1,30 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { requestFriends } from '../../redux/users-reducer';
+import { requestSidebarFriends } from '../../redux/users-reducer';
 import { getUserProfile } from '../../redux/profile-reducer';
 import Sidebar from './Sidebar';
-import { setIsSidebarHidden } from '../../redux/app-reducer';
 
 const SidebarContainer = ({
   sidebarSize,
-  friends,
+  sidebarFriends,
   getUserProfile,
-  requestFriends,
-  isSidebarHidden,
-  setIsSidebarHidden,
+  requestSidebarFriends,
 }) => {
   useEffect(() => {
-    requestFriends(1, sidebarSize);
-    friends.length !== 0 && setIsSidebarHidden(false);
-  }, [friends.length, requestFriends, setIsSidebarHidden, sidebarSize]);
+    requestSidebarFriends(1, sidebarSize);
+  }, [sidebarFriends.length, requestSidebarFriends, sidebarSize]);
 
-  return (
-    <Sidebar
-      friends={friends}
-      getUserProfile={getUserProfile}
-      isSidebarHidden={isSidebarHidden}
-    />
-  );
+  return <Sidebar friends={sidebarFriends} getUserProfile={getUserProfile} />;
 };
 
 const mapStateToProps = (state) => {
   return {
-    friends: state.usersPage.friends,
+    sidebarFriends: state.usersPage.sidebarFriends,
     sidebarSize: state.usersPage.sidebarSize,
-    isSidebarHidden: state.app.isSidebarHidden,
   };
 };
 
 export default connect(mapStateToProps, {
-  requestFriends,
+  requestSidebarFriends,
   getUserProfile,
-  setIsSidebarHidden,
 })(SidebarContainer);

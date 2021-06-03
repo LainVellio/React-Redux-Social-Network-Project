@@ -5,8 +5,6 @@ const Pagination = ({
   onShiftPagesRight,
   onPageChanged,
   pages,
-  isFriends,
-  currentPageFriends,
   currentPage,
   beginPage,
   endPage,
@@ -25,11 +23,9 @@ const Pagination = ({
         .map((page) => (
           <span
             key={page}
-            className={`${
-              isFriends
-                ? currentPageFriends === page && cl.selectedPage
-                : currentPage === page && cl.selectedPage
-            } ${cl.numberPage}`}
+            className={`${currentPage === page && cl.selectedPage} ${
+              cl.numberPage
+            }`}
             onClick={() => {
               onPageChanged(page);
             }}
