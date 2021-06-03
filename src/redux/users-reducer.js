@@ -160,10 +160,12 @@ export const requestUsers = (page, pageSize, isFriends) => async (dispatch) => {
 
 export const requestFriends = (page, pageSize) => async (dispatch) => {
   try {
+    console.log('request friends');
     const response = await usersAPI.getUsers(page, pageSize, true);
     const friends = response.data.items;
     dispatch(setFriends(friends));
     friends.length === 0 && dispatch(setIsSidebarHidden(true));
+    console.log('request friends end');
   } catch (error) {
     dispatch(setGlobalError(error));
   }

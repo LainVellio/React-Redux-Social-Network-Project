@@ -66,7 +66,9 @@ const Dialogs = ({
           component={Textarea}
           validate={[required, maxLength100]}
         />
-        <button className={cl.sendButton}>Send</button>
+        <div>
+          <button className={cl.sendButton}>Send</button>
+        </div>
       </form>
     );
   };

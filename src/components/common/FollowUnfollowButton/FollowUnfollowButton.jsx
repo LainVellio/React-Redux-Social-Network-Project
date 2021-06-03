@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { follow, unfollow } from '../../../redux/users-reducer';
 import cl from './FollowUnfollowButton.module.css';
 
-const Button = ({ user, followingInProgress, follow, unfollow }) => {
+const Button = ({ user, followingInProgress, follow, unfollow, isAuth }) => {
+  const [isHidden, setIsisHidden] = useState(true);
+
+  useEffect(() => {
+    setIsisHidden(!isAuth);
+  }, [isAuth]);
+
   return (
-    <div>
+    <div className={isHidden ? cl.hidden : ''}>
       {user.followed ? (
         <button
           disabled={followingInProgress.some((id) => id === user.id)}
@@ -34,6 +40,7 @@ const Button = ({ user, followingInProgress, follow, unfollow }) => {
 const mapStateToProps = (state) => {
   return {
     followingInProgress: state.usersPage.followingInProgress,
+    isAuth: state.auth.isAuth,
   };
 };
 

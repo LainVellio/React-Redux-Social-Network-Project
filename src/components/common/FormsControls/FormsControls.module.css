@@ -20,5 +20,16 @@
 }
 
 .loginBtn {
+  background-color: #ffc085;
+  border: 1px solid #ffc085;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding: 10px;
+  display: block;
   margin: 10px 0 0 0;
+}
+
+.loginBtn:hover {
+  color: #f6851e;
+  background-color: white;
 }

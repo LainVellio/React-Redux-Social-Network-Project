@@ -25,3 +25,7 @@
   border: 1px solid grey;
   background-color: grey;
 }
+
+.hidden {
+  display: none;
+}

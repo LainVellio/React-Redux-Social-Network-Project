@@ -61,6 +61,8 @@ export const initializeApp = () => (dispatch) => {
 export const setGlobalError = (error) => (dispatch) => {
   const createMainMessageError = (errorStatus) => {
     switch (errorStatus) {
+      case 400:
+        return 'Код 400 - Неверный запрос';
       case 403:
         return 'Код 403 - Ошибка доступа';
       case 500:

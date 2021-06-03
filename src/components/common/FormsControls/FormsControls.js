@@ -25,7 +25,7 @@ export const FormControl = (Element, className) => ({
 };
 
 export const Textarea = FormControl('textarea', TextareaStyles);
-export const Input = FormControl('input', TextareaStyles);
+export const Input = FormControl('input', InputProfileInfoStyles);
 export const Checkbox = FormControl('input', CheckboxStyles);
 export const InputProfileInfo = FormControl('input', InputProfileInfoStyles);
 

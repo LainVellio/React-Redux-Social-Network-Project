@@ -20,13 +20,7 @@ const ProfileContainer = React.lazy(() =>
   import('./components/Profile/ProfileContainer'),
 );
 
-const App = ({
-  initialized,
-  globalError,
-  initializeApp,
-  setGlobalError,
-  isSidebarHidden,
-}) => {
+const App = ({ initialized, globalError, initializeApp, setGlobalError }) => {
   useEffect(() => {
     const catchAllUnhandledErrors = (promise) => {
       setGlobalError('Необработанная ошибка', promise.reason);
@@ -56,7 +50,7 @@ const App = ({
         )}
         <div>
           <NavbarContainer />
-          {!isSidebarHidden && <SidebarContainer />}
+          <SidebarContainer />
         </div>
         <Suspense fallback={<Preloader />}>
           <Switch>
@@ -88,7 +82,6 @@ const App = ({
 const mapStateToProps = (state) => ({
   initialized: state.app.initialized,
   globalError: state.app.globalError,
-  isSidebarHidden: state.app.isSidebarHidden,
   friends: state.usersPage.friends,
 });
 

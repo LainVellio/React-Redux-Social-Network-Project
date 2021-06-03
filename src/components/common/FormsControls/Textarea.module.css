@@ -1,5 +1,4 @@
 .block {
-  display: flex;
   width: 100%;
 }
 
@@ -7,4 +6,13 @@
   width: 98%;
   height: 40px;
   resize: none;
+}
+
+.errorField {
+  border: red 1px solid;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
 }
