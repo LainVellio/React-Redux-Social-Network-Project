@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { follow, unfollow } from '../../../redux/users-reducer';
+import { setFollowed } from '../../../redux/users-reducer';
 import cl from './FollowUnfollowButton.module.css';
 
-const Button = ({ user, followingInProgress, follow, unfollow, isAuth }) => {
+const Button = ({ user, followingInProgress, setFollowed, isAuth }) => {
   const [isHidden, setIsisHidden] = useState(true);
 
   useEffect(() => {
@@ -17,20 +17,20 @@ const Button = ({ user, followingInProgress, follow, unfollow, isAuth }) => {
           disabled={followingInProgress.some((id) => id === user.id)}
           className={`${cl.button} ${cl.follow}`}
           onClick={() => {
-            unfollow(user.id);
+            setFollowed(user.id, false);
           }}
         >
-          Follow
+          Remove
         </button>
       ) : (
         <button
           disabled={followingInProgress.some((id) => id === user.id)}
           className={`${cl.button} ${cl.unfollow}`}
           onClick={() => {
-            follow(user.id);
+            setFollowed(user.id, true);
           }}
         >
-          UnFollow
+          Add
         </button>
       )}
     </div>
@@ -44,4 +44,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { unfollow, follow })(Button);
+export default connect(mapStateToProps, { setFollowed })(Button);

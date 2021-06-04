@@ -3,7 +3,7 @@ import { authAPI, securityAPI } from '../api/api';
 import { setGlobalError } from './app-reducer';
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
-const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCES';
+const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS';
 
 const initialState = {
   userId: null,

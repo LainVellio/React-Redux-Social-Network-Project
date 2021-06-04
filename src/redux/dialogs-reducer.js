@@ -44,25 +44,16 @@ const dialogsReducer = (state = initialState, action) => {
       };
 
     case SET_SELECTED_USER_ID:
-      return {
-        ...state,
-        selectedUserId: action.selectedUserId,
-      };
-
     case SET_FRIENDS:
+    case SET_PAGE_FRIENDS:
+    case SET_TOTAL_COUNT_FRIENDS:
       return {
         ...state,
-        friends: action.friends,
+        ...action.payload,
       };
 
     case ADD_NEXT_FRIENDS_PAGE_CREATOR:
       return { ...state, friends: [...state.friends, ...action.friends] };
-
-    case SET_TOTAL_COUNT_FRIENDS:
-      return { ...state, totalCountFriends: action.totalCountFriends };
-
-    case SET_PAGE_FRIENDS:
-      return { ...state, pageFriends: action.pageFriends };
 
     default:
       return state;
@@ -76,20 +67,20 @@ export const sendMessage = (userId, message) => ({
 });
 export const setSelectedUserId = (selectedUserId) => ({
   type: SET_SELECTED_USER_ID,
-  selectedUserId,
+  payload: { selectedUserId },
 });
 export const setFriends = (friends) => ({ type: SET_FRIENDS, friends });
 export const addNextFriendsPageCreator = (friends) => ({
   type: ADD_NEXT_FRIENDS_PAGE_CREATOR,
-  friends,
+  payload: { friends },
 });
 export const setTotalCountFriends = (totalCountFriends) => ({
   type: SET_TOTAL_COUNT_FRIENDS,
-  totalCountFriends,
+  payload: { totalCountFriends },
 });
 export const setPageFriends = (pageFriends) => ({
   type: SET_PAGE_FRIENDS,
-  pageFriends,
+  payload: { pageFriends },
 });
 
 export const requestFriends = (page, pageSize) => async (dispatch) => {

@@ -6,7 +6,6 @@ const ADD_POST = 'profilePage/ADD-POST';
 const SET_USER_PROFILE = 'profilePage/SET_USER_PROFILE';
 const SET_USER_STATUS = 'profilePage/SET_USER_STATUS';
 const TOGGLE_IS_FETCHING = 'profilePage/TOGGLE_IS_FETCHING';
-const INITIALIZED_SUCCESS_PROFILE = 'profilePage/INITIALIZED_SUCCESS_PROFILE';
 const SAVE_PHOTO_SUCCESS = 'profilePage/SAVE_PHOTO_SUCCESS';
 const TOGGLE_IS_FETCHING_STATUS = 'profilePage/TOGGLE_IS_FETCHING_STATUS';
 const TOGGLE_IS_FETCHING_PROFILE_INFO =
@@ -41,35 +40,13 @@ const profileReducer = (state = initialState, action) => {
       };
 
     case SET_USER_PROFILE:
-      return { ...state, profile: action.profile };
-
     case SET_USER_STATUS:
-      return { ...state, status: action.status };
-
     case TOGGLE_IS_FETCHING:
-      return { ...state, isFetching: action.isFetching };
     case TOGGLE_IS_FETCHING_STATUS:
-      return { ...state, isFetchingStatus: action.isFetchingStatus };
     case TOGGLE_IS_FETCHING_PROFILE_INFO:
-      return { ...state, isFetchingProfileInfo: action.isFetchingProfileInfo };
-
-    case INITIALIZED_SUCCESS_PROFILE:
-      return {
-        ...state,
-        initialized: true,
-      };
-
     case SAVE_PHOTO_SUCCESS:
-      return {
-        ...state,
-        profile: { ...state.profile, photos: action.photos },
-      };
-
     case SET_USER_SUCCESS:
-      return {
-        ...state,
-        user: action.user,
-      };
+      return { ...state, ...action.payload };
 
     default:
       return state;
@@ -85,34 +62,31 @@ export const addPostCreator = (idUserPage, message, name, likesCount) => ({
 });
 export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
-  profile,
+  payload: { profile },
 });
 export const setUserStatusSuccess = (status) => ({
   type: SET_USER_STATUS,
-  status,
+  payload: { status },
 });
 export const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
-  isFetching,
+  payload: { isFetching },
 });
 export const toggleIsFetchingStatus = (isFetchingStatus) => ({
   type: TOGGLE_IS_FETCHING_STATUS,
-  isFetchingStatus,
+  payload: { isFetchingStatus },
 });
 export const toggleIsFetchingProfileInfo = (isFetchingProfileInfo) => ({
   type: TOGGLE_IS_FETCHING_PROFILE_INFO,
-  isFetchingProfileInfo,
-});
-export const initializedSuccessProfile = () => ({
-  type: INITIALIZED_SUCCESS_PROFILE,
+  payload: { isFetchingProfileInfo },
 });
 export const savePhotoSuccess = (photos) => ({
   type: SAVE_PHOTO_SUCCESS,
-  photos,
+  payload: { photos },
 });
 export const setUserSuccess = (user) => ({
   type: SET_USER_SUCCESS,
-  user,
+  payload: { user },
 });
 
 export const addPost = (idUserPage, message, name, likesCount = 0) => (

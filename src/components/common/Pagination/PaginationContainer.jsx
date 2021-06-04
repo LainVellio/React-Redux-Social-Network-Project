@@ -1,6 +1,7 @@
 import Pagination from './Pagination';
 import { setCurrentPage, shiftPages } from '../../../redux/pagination-reducer';
 import { connect } from 'react-redux';
+import { useEffect } from 'react';
 
 const PaginationContainer = ({
   nameOfElements,
@@ -9,13 +10,17 @@ const PaginationContainer = ({
   setCurrentPage,
   shiftPages,
   state,
+  isFetching,
 }) => {
   const { beginPage, endPage, totalCount, currentPage } = state[nameOfElements];
 
   const totalCountPage = Math.ceil(totalCount / pageSize);
 
+  useEffect(() => {
+    requestFunction(currentPage, pageSize);
+  }, [currentPage, pageSize, requestFunction]);
+
   const onPageChanged = (pageNumber) => {
-    requestFunction(pageNumber, pageSize);
     setCurrentPage(nameOfElements, pageNumber);
   };
 
@@ -31,7 +36,7 @@ const PaginationContainer = ({
   const onShiftPagesRight = () => {
     if (currentPage !== totalCountPage) {
       onPageChanged(currentPage + 1);
-      if (endPage !== totalCountPage) {
+      if (endPage < totalCountPage) {
         shiftPages(nameOfElements, beginPage + 1, endPage + 1);
       }
     }
@@ -43,15 +48,20 @@ const PaginationContainer = ({
   }
 
   return (
-    <Pagination
-      onShiftPagesLeft={onShiftPagesLeft}
-      onShiftPagesRight={onShiftPagesRight}
-      onPageChanged={onPageChanged}
-      pages={pages}
-      currentPage={currentPage}
-      beginPage={beginPage}
-      endPage={endPage}
-    />
+    <div>
+      {' '}
+      {!isFetching && (
+        <Pagination
+          onShiftPagesLeft={onShiftPagesLeft}
+          onShiftPagesRight={onShiftPagesRight}
+          onPageChanged={onPageChanged}
+          pages={pages}
+          currentPage={currentPage}
+          beginPage={beginPage}
+          endPage={endPage}
+        />
+      )}
+    </div>
   );
 };
 

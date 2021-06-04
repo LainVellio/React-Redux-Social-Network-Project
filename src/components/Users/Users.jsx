@@ -24,14 +24,17 @@ const Users = ({
           nameOfElements="friends"
           pageSize={4}
           requestFunction={requestFriends}
+          isFetching={isFetching}
         />
       ) : (
         <PaginationContainer
           nameOfElements="users"
           pageSize={4}
           requestFunction={requestUsers}
+          isFetching={isFetching}
         />
       )}
+
       {isFetching ? (
         <Preloader />
       ) : (

@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import Users from './Users';
 import { connect } from 'react-redux';
 import {
@@ -22,10 +21,6 @@ const UsersContainer = ({
   requestFriends,
   toggleIsFriends,
 }) => {
-  useEffect(() => {
-    isFriends ? requestFriends(1, 4) : requestUsers(1, 4);
-  }, [isFriends, requestFriends, requestUsers]);
-
   const onAllUsers = () => {
     toggleIsFriends(false);
   };
