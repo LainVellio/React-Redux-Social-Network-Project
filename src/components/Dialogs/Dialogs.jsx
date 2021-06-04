@@ -28,7 +28,7 @@ const Dialogs = ({
 
   useEffect(() => {
     requestFriends(1, (pageFriends - 1) * pageSize);
-  }, [pageSize, requestFriends]);
+  }, [pageFriends, pageSize, requestFriends]);
 
   const dialogsElements = friends.map((friend) => (
     <DialogItem

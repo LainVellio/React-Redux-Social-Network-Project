@@ -69,10 +69,13 @@ export const setSelectedUserId = (selectedUserId) => ({
   type: SET_SELECTED_USER_ID,
   payload: { selectedUserId },
 });
-export const setFriends = (friends) => ({ type: SET_FRIENDS, friends });
+export const setFriends = (friends) => ({
+  type: SET_FRIENDS,
+  payload: { friends },
+});
 export const addNextFriendsPageCreator = (friends) => ({
   type: ADD_NEXT_FRIENDS_PAGE_CREATOR,
-  payload: { friends },
+  friends,
 });
 export const setTotalCountFriends = (totalCountFriends) => ({
   type: SET_TOTAL_COUNT_FRIENDS,
