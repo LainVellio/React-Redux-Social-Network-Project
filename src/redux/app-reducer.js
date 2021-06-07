@@ -56,6 +56,8 @@ export const setGlobalError = (error) => (dispatch) => {
         return 'Код 403 - Ошибка доступа';
       case 500:
         return 'Код 500 - Ошибка сервера';
+      case 429:
+        return 'Код 429 - Слишком много запросов';
       default:
         return 'Неизвестная ошибка';
     }

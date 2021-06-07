@@ -44,12 +44,16 @@ const dialogsReducer = (state = initialState, action) => {
       };
 
     case SET_SELECTED_USER_ID:
-    case SET_FRIENDS:
     case SET_PAGE_FRIENDS:
     case SET_TOTAL_COUNT_FRIENDS:
       return {
         ...state,
         ...action.payload,
+      };
+    case SET_FRIENDS:
+      return {
+        ...state,
+        friends: action.friends,
       };
 
     case ADD_NEXT_FRIENDS_PAGE_CREATOR:
@@ -71,7 +75,7 @@ export const setSelectedUserId = (selectedUserId) => ({
 });
 export const setFriends = (friends) => ({
   type: SET_FRIENDS,
-  payload: { friends },
+  friends,
 });
 export const addNextFriendsPageCreator = (friends) => ({
   type: ADD_NEXT_FRIENDS_PAGE_CREATOR,

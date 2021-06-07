@@ -44,10 +44,11 @@ const profileReducer = (state = initialState, action) => {
     case TOGGLE_IS_FETCHING:
     case TOGGLE_IS_FETCHING_STATUS:
     case TOGGLE_IS_FETCHING_PROFILE_INFO:
-    case SAVE_PHOTO_SUCCESS:
     case SET_USER_SUCCESS:
       return { ...state, ...action.payload };
 
+    case SAVE_PHOTO_SUCCESS:
+      return { ...state, profile: { ...state.profile, photos: action.photos } };
     default:
       return state;
   }
@@ -82,7 +83,7 @@ export const toggleIsFetchingProfileInfo = (isFetchingProfileInfo) => ({
 });
 export const savePhotoSuccess = (photos) => ({
   type: SAVE_PHOTO_SUCCESS,
-  payload: { photos },
+  photos,
 });
 export const setUserSuccess = (user) => ({
   type: SET_USER_SUCCESS,
