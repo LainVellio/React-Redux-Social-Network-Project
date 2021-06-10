@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/React-Redux-Social-Network-Project/static/css/main.e358621a.chunk.css",
-    "main.js": "/React-Redux-Social-Network-Project/static/js/main.a19bc4dd.chunk.js",
-    "main.js.map": "/React-Redux-Social-Network-Project/static/js/main.a19bc4dd.chunk.js.map",
-    "runtime-main.js": "/React-Redux-Social-Network-Project/static/js/runtime-main.14269a3b.js",
-    "runtime-main.js.map": "/React-Redux-Social-Network-Project/static/js/runtime-main.14269a3b.js.map",
+    "main.js": "/React-Redux-Social-Network-Project/static/js/main.2fceb5b3.chunk.js",
+    "main.js.map": "/React-Redux-Social-Network-Project/static/js/main.2fceb5b3.chunk.js.map",
+    "runtime-main.js": "/React-Redux-Social-Network-Project/static/js/runtime-main.5da11a14.js",
+    "runtime-main.js.map": "/React-Redux-Social-Network-Project/static/js/runtime-main.5da11a14.js.map",
     "static/js/2.35b86faa.chunk.js": "/React-Redux-Social-Network-Project/static/js/2.35b86faa.chunk.js",
     "static/js/2.35b86faa.chunk.js.map": "/React-Redux-Social-Network-Project/static/js/2.35b86faa.chunk.js.map",
     "static/css/3.b70bf258.chunk.css": "/React-Redux-Social-Network-Project/static/css/3.b70bf258.chunk.css",
-    "static/js/3.72820e5b.chunk.js": "/React-Redux-Social-Network-Project/static/js/3.72820e5b.chunk.js",
-    "static/js/3.72820e5b.chunk.js.map": "/React-Redux-Social-Network-Project/static/js/3.72820e5b.chunk.js.map",
+    "static/js/3.2117543a.chunk.js": "/React-Redux-Social-Network-Project/static/js/3.2117543a.chunk.js",
+    "static/js/3.2117543a.chunk.js.map": "/React-Redux-Social-Network-Project/static/js/3.2117543a.chunk.js.map",
     "static/css/4.02fadf56.chunk.css": "/React-Redux-Social-Network-Project/static/css/4.02fadf56.chunk.css",
     "static/js/4.4f381bbb.chunk.js": "/React-Redux-Social-Network-Project/static/js/4.4f381bbb.chunk.js",
     "static/js/4.4f381bbb.chunk.js.map": "/React-Redux-Social-Network-Project/static/js/4.4f381bbb.chunk.js.map",
@@ -23,9 +23,9 @@
     "static/media/1.png": "/React-Redux-Social-Network-Project/static/media/1.e36dde25.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.14269a3b.js",
+    "static/js/runtime-main.5da11a14.js",
     "static/js/2.35b86faa.chunk.js",
     "static/css/main.e358621a.chunk.css",
-    "static/js/main.a19bc4dd.chunk.js"
+    "static/js/main.2fceb5b3.chunk.js"
   ]
 }
