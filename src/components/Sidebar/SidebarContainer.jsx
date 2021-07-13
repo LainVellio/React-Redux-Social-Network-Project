@@ -9,10 +9,11 @@ const SidebarContainer = ({
   sidebarFriends,
   getUserProfile,
   requestSidebarFriends,
+  isAuth,
 }) => {
   useEffect(() => {
     requestSidebarFriends(1, sidebarSize);
-  }, [sidebarFriends.length, requestSidebarFriends, sidebarSize]);
+  }, [sidebarFriends.length, requestSidebarFriends, sidebarSize, isAuth]);
 
   return <Sidebar friends={sidebarFriends} getUserProfile={getUserProfile} />;
 };
@@ -21,6 +22,7 @@ const mapStateToProps = (state) => {
   return {
     sidebarFriends: state.usersPage.sidebarFriends,
     sidebarSize: state.usersPage.sidebarSize,
+    isAuth: state.auth.isAuth,
   };
 };
 

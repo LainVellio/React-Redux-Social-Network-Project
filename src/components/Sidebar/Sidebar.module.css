@@ -23,6 +23,7 @@ a {
 }
 
 .friendName {
+  overflow: hidden;
   padding-left: 5px;
 }
 

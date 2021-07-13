@@ -7,8 +7,10 @@ import {
 import { reduxForm } from 'redux-form';
 import { required } from '../../../utils/validators/validators';
 import st from '../../common/FormsControls/FormsControls.module.css';
+import MiniPreloader from '../../common/Preloader/MiniPreloader';
 
-const ProfileDataForm = ({ handleSubmit, error }) => {
+const ProfileDataForm = ({ handleSubmit, error, isFetchingProfileInfo }) => {
+  if (isFetchingProfileInfo) return <MiniPreloader />;
   return (
     <form onSubmit={handleSubmit}>
       <div>

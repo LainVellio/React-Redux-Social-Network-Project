@@ -20,10 +20,6 @@ const ProfileInfo = ({
 }) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
-  if (!profile) {
-    return <Preloader />;
-  }
-
   const onMainPhotoSelected = (e) => {
     if (e.target.files.length) {
       savePhoto(e.target.files[0]);
@@ -35,6 +31,10 @@ const ProfileInfo = ({
       setIsEditMode(false);
     });
   };
+
+  if (!profile) {
+    return <Preloader />;
+  }
 
   return (
     <div className={cl.profile_content}>
@@ -74,7 +74,11 @@ const ProfileInfo = ({
             isFetchingStatus={isFetchingStatus}
           />
           {isEditMode ? (
-            <ProfileDataForm initialValues={profile} onSubmit={onSubmit} />
+            <ProfileDataForm
+              initialValues={profile}
+              onSubmit={onSubmit}
+              isFetchingProfileInfo={isFetchingProfileInfo}
+            />
           ) : (
             <ProfileDescription
               profile={profile}

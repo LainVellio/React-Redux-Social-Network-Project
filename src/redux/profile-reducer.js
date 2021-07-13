@@ -113,7 +113,7 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const response = await profileAPI.saveProfile(profile);
     if (response.data.resultCode === 0) {
-      await dispatch(getUserProfile(userId));
+      await dispatch(getUserProfile(userId, false));
     } else {
       const messages = response.data.messages
         .map((i) => {
@@ -144,9 +144,11 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
   dispatch(toggleIsFetchingProfileInfo(false));
 };
 
-export const getUserProfile = (userId) => async (dispatch) => {
+export const getUserProfile = (userId, isFetching = true) => async (
+  dispatch,
+) => {
   try {
-    dispatch(toggleIsFetching(true));
+    dispatch(toggleIsFetching(isFetching));
     const responseStatus = await profileAPI.getStatus(userId);
     dispatch(setUserStatusSuccess(responseStatus.data));
     const responseProfile = await profileAPI.getProfile(userId);
