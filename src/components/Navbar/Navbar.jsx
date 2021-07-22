@@ -1,16 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import cl from './Navbar.module.css';
 
-const Navbar = ({ userId, getUserProfile }) => {
-  const onUserProfile = () => getUserProfile(userId);
-
+const Navbar = ({ userId }) => {
   return (
     <nav className={`${cl.nav} ${'block'}`}>
       <div className={cl.links}>
         <div className={cl.item}>
           <NavLink
             to={!userId ? `/login` : `/profile/${userId}`}
-            onClick={onUserProfile}
             activeClassName={cl.active}
           >
             My profile
